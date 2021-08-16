@@ -199,20 +199,9 @@ public class UnitEngine : MonoBehaviour
     /// <param name="type">type of the recource</param>
     public void SendToStockPile(ResourceType type)
     {
-        switch (type)
-        {
-            case ResourceType.Tree:
-                stockTarget = ResourceManager.instance.treeStocks[0];
-                break;
-            case ResourceType.Stone:
-                stockTarget = ResourceManager.instance.stoneStocks[0];
-                break;
-            case ResourceType.Food:
-                stockTarget = ResourceManager.instance.foodStocks[0];
-                break;
-        }
+        stockTarget = ResourceManager.instance.FindNearesStockPile(transform.position, ResourceType.Tree)[0];
         if (stockTarget != null)
-            GoToTarget(stockTarget);
+            GoToTarget(stockTarget.transform.Find("UnloadSpot").gameObject);
     }
     /// <summary>
     /// Manually Send a Unit to stockpile by user input
@@ -308,8 +297,9 @@ public class UnitEngine : MonoBehaviour
                     case 11: //Building Layer
                         if (target.tag.Equals("StockPile"))
                         {
-                            ResourceManager.instance.Unload(unit, target.GetComponent<StockEngine>().type, target);
-                            SendToHarvest(target.GetComponent<StockEngine>().type);
+                            GameObject stockPile = target.transform.parent.gameObject;
+                            ResourceManager.instance.Unload(unit, stockPile.GetComponent<StockEngine>().type, stockPile);
+                            SendToHarvest(stockPile.GetComponent<StockEngine>().type);
                         }
                         else
                         {
@@ -355,16 +345,6 @@ public class UnitEngine : MonoBehaviour
             StopAllCoroutines();
         }
     }
-
-    //TODO
-    //Upgrade Game UI :
-        //MiniMap
-        //Current Unit Roles
-    //Fog of War 
-    //Level Design
-    //Building System
-    //Weapon System
-
 
     private void OnDrawGizmos()
     {

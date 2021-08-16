@@ -6,17 +6,24 @@ using TMPro;
 
 public class UnitGUI : MonoBehaviour
 {
-    //Singletom
+    //Singleton
     public static UnitGUI instance;
 
+    //Selected Units Panel
     [SerializeField] GameObject singleUnitImage;
     [SerializeField] GameObject multipleUnitContent;
     [SerializeField] GameObject multipleUnitOption;
-    [SerializeField] Transform[] unitCommands;
+
+    //Unit Action Panel
+    [SerializeField] Transform unitCommands;
+    [SerializeField] Transform buildingOptions;
+
+    public bool isBluePrintEnabled;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        isBluePrintEnabled = false;
     }
 
     // Update is called once per frame
@@ -43,7 +50,9 @@ public class UnitGUI : MonoBehaviour
             }
             multipleUnitContent.SetActive(false);
         }
-        foreach(Transform command in unitCommands)
+        if (buildingOptions.gameObject.activeInHierarchy)
+            CloseBuildingPanel();
+        foreach (Transform command in unitCommands)
         {
             if(command.childCount > 0)
                 command.GetChild(0).gameObject.SetActive(false);
@@ -84,14 +93,18 @@ public class UnitGUI : MonoBehaviour
     }
     private void UpdateUnitActions(bool canBuild)
     {
-        int index;
-        for (index = 1; index <= 4; index++)
+        int index = 1;
+        foreach(Transform child in unitCommands)
         {
-            unitCommands[index - 1].GetChild(0).gameObject.SetActive(true);
-        }
-        if(canBuild)
-        {
-            //add building options
+            if (index == 5)
+            {
+                if (canBuild)
+                    child.GetChild(0).gameObject.SetActive(true);
+                break;
+            }
+            else
+                child.GetChild(0).gameObject.SetActive(true);
+            index++;
         }
     }
 
@@ -105,5 +118,24 @@ public class UnitGUI : MonoBehaviour
     public void SetUnitPath()
     {
         SelectionManager.instance.isSetTargetMode = true;
+    }
+
+    public void OpenBuildingPanel()
+    {
+        unitCommands.gameObject.SetActive(false);
+        buildingOptions.gameObject.SetActive(true);
+    }
+    public void CloseBuildingPanel()
+    {
+        unitCommands.gameObject.SetActive(true);
+        buildingOptions.gameObject.SetActive(false);
+    }
+    public void ActivateBluePrint(BuildingSettings building)
+    {
+        if (!isBluePrintEnabled && ResourceManager.instance.CanBuild(building.woodCost, building.stoneCost))
+        {
+            isBluePrintEnabled = true;
+            Instantiate(building.bluePrint);
+        }
     }
 }

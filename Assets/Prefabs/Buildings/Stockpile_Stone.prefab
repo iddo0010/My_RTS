@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2597948738331744862}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: UnloadSpot
-  m_TagString: Untagged
+  m_TagString: StockPile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  isEmpty: 0
 --- !u!65 &8242639129110130974
 BoxCollider:
   m_ObjectHideFlags: 0
