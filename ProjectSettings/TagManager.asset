@@ -10,7 +10,7 @@ TagManager:
   - Stone
   - Ground
   - TargetCommand
-  - BluePrint
+  - Construction
   layers:
   - Default
   - TransparentFX

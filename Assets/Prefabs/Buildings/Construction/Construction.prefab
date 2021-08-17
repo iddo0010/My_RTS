@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8200514778766585121}
   - component: {fileID: 3197527498310406722}
   - component: {fileID: 7861956752900475236}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Construction
   m_TagString: Construction
   m_Icon: {fileID: 0}
@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46d8483b56be0ac409d0fb757355f5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  building: {fileID: 0}
 --- !u!1001 &1883289272924667829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,6 +115,11 @@ PrefabInstance:
     - target: {fileID: 4686493272940408, guid: 9bb37ed89c25deb42acb5f3ff1f193b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860157287855956913, guid: 9bb37ed89c25deb42acb5f3ff1f193b1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6222192232237529806, guid: 9bb37ed89c25deb42acb5f3ff1f193b1, type: 3}
@@ -200,6 +206,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.562
+      objectReference: {fileID: 0}
+    - target: {fileID: 3269098838307119034, guid: 4bf4d25ac3028da4384dd8cf80a1ef82,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bf4d25ac3028da4384dd8cf80a1ef82, type: 3}
@@ -313,6 +324,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 32.135002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3269098838307119034, guid: 4bf4d25ac3028da4384dd8cf80a1ef82,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bf4d25ac3028da4384dd8cf80a1ef82, type: 3}

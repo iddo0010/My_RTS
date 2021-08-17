@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3789752693464767862}
   - component: {fileID: 3594788910652853896}
   - component: {fileID: 6222192232237529806}
-  m_Layer: 0
+  - component: {fileID: -8112859245055800324}
+  m_Layer: 11
   m_Name: Wood_Pile
   m_TagString: Construction
   m_Icon: {fileID: 0}
@@ -94,3 +95,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: fd653d8ffef5899458bfb0dbbcf9c9a5, type: 3}
+--- !u!114 &-8112859245055800324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860157287855956913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d8483b56be0ac409d0fb757355f5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 0}

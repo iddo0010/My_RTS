@@ -135,7 +135,8 @@ public class UnitGUI : MonoBehaviour
         if (!isBluePrintEnabled && ResourceManager.instance.CanBuild(building.woodCost, building.stoneCost))
         {
             isBluePrintEnabled = true;
-            Instantiate(building.bluePrint);
+            Transform newBuilding = Instantiate(building.bluePrint);
+            newBuilding.GetComponent<Blueprint>().building = building;
         }
     }
 }

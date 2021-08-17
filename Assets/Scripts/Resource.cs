@@ -18,7 +18,7 @@ public class Resource : MonoBehaviour
     public ResourceType type;
 
 
-    public Dictionary<Collider, Coroutine> colliders;
+    public Dictionary<Collider, Coroutine> colliders; 
     Coroutine routine;
 
     public void Awake()
@@ -32,12 +32,12 @@ public class Resource : MonoBehaviour
         if (quantity <= 0)
         {
             StopAllCoroutines();
-            foreach (KeyValuePair<Collider,Coroutine> pair in colliders)
+            foreach (KeyValuePair<Collider,Coroutine> pair in colliders) ///Disables all units currently harvesting if the resource has been destroyed
             {
                 UnitEngine unit = pair.Key.gameObject.GetComponent<UnitEngine>();
                 unit.resourceBeingGathered = null;
                 unit.unit.isHarvesting = false;
-                unit.SetHarvestAnimation(false);
+                unit.SetAnimation("isHarvesting" , false);
             }
             Destroy(gameObject);
             if (type.Equals(ResourceType.Tree))
@@ -69,7 +69,7 @@ public class Resource : MonoBehaviour
 
 
     /// <summary>
-    /// Collects Wood by Ticks, sends back to stockpile if unit bag is full, sends looking for more resources if the resource has been destoryed
+    /// Collects Wood by Ticks, sends back to stockpile if unit bag is full.
     /// </summary>
     /// <param name="unitEngine">Unit Harvesting</param>
     /// <returns></returns>
@@ -78,7 +78,7 @@ public class Resource : MonoBehaviour
         if (unitEngine.mainWeapon.type == weaponType.HarvestingAxe)
         {
             unitEngine.unit.isHarvesting = true;
-            unitEngine.SetHarvestAnimation(true);
+            unitEngine.SetAnimation("isHarvesting" , true);
             for (int i = 0; i <= (delay * 5); i++)
             {
                 yield return new WaitForSeconds(delay);
@@ -128,15 +128,15 @@ public class Resource : MonoBehaviour
         switch (type)
         {
             case ResourceType.Tree:
-                unitEngine.SetHarvestAnimation(false);
+                unitEngine.SetAnimation("isHarvesting" , false);
                 break;
             case ResourceType.Stone:
                 unitEngine.ActivateUnit(true);
                 break;
         }
-        StopCoroutine(colliders[unitEngine.GetComponent<CapsuleCollider>()]);
+        StopCoroutine(colliders[unitEngine.GetComponent<CapsuleCollider>()]); //stops a specific coroutine according to unit
         unitEngine.unit.isHarvesting = false;
-        colliders.Remove(unitEngine.GetComponent<CapsuleCollider>());
+        colliders.Remove(unitEngine.GetComponent<CapsuleCollider>());//removes unit from the dictionary
     }
 
 }
