@@ -54,7 +54,7 @@ public class Blueprint : MonoBehaviour
             {
                 UnitGUI.instance.isBluePrintEnabled = false;
                 ResourceManager.instance.ReduceAmount(building.woodCost, building.stoneCost, transform.position);
-                Transform newBuilding = Instantiate(building.prefab, transform.position, transform.rotation);
+                Transform newBuilding = Instantiate(building.construction, transform.position, transform.rotation);
                 foreach (GameObject unit in selectedBuildersList)//Send all builders to the new building 
                 {
                     unit.GetComponent<UnitEngine>().GoToTarget(newBuilding.gameObject);
@@ -95,7 +95,7 @@ public class Blueprint : MonoBehaviour
         }
         else
         {
-            renderer.material.color = new Color32(60, 108, 73, 255);//change color to green
+            renderer.material.color = new Color32(63, 89, 91, 255);//change color to green
             return true;
         }
     }

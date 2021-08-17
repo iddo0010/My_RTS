@@ -141,17 +141,7 @@ public class UnitEngine : MonoBehaviour
     {
         if (!SelectionManager.instance.IsMouseOverUI())
         {
-            if (unit.isGatheringRoutine) // Disable Gathering if unit has been moved during Process
-            {
-                if (unit.isHarvesting)
-                {
-                    unit.isHarvesting = false;
-                    SetHarvestAnimation(false);
-                }
-                unit.isGatheringRoutine = false;
-                resourceBeingGathered = null;
-                StopAllCoroutines();
-            }
+            CancelCurrentAction();
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -285,21 +275,19 @@ public class UnitEngine : MonoBehaviour
                         c.GetComponent<Resource>().Gather(this);
                         break;
                     case 11: //Building Layer
-                        BuildingOpacity buildingOpacity;
-                        if (target.TryGetComponent<BuildingOpacity>(out buildingOpacity)) // if building is in build process
+                        switch (target.tag)
                         {
-
-                        }
-                        else
-                        {
-                            switch (target.tag)
-                            {
-                                case "StockPile":
-                                    GameObject stockPile = target.transform.parent.gameObject;
-                                    ResourceManager.instance.Unload(unit, stockPile.GetComponent<StockEngine>().type, stockPile);
-                                    SendToHarvest(stockPile.GetComponent<StockEngine>().type);
-                                    break;
-                            }
+                            case "StockPile":
+                                GameObject stockPile = target.transform.parent.gameObject;
+                                ResourceManager.instance.Unload(unit, stockPile.GetComponent<StockEngine>().type, stockPile);
+                                SendToHarvest(stockPile.GetComponent<StockEngine>().type);
+                                break;
+                            case "Construction":
+                                if (mainWeapon.canBuild)
+                                {
+                                    //anm.SetBool("isBuilding", true);
+                                }
+                                break;
                         }
                         break;
                 }
@@ -329,16 +317,12 @@ public class UnitEngine : MonoBehaviour
     public void CancelCurrentAction()
     {
         agent.ResetPath();
-        if(unit.isGatheringRoutine)
+        if (unit.isGatheringRoutine) // Disable Gathering if unit has been moved during Process
         {
             if (unit.isHarvesting)
-            {
-                unit.isHarvesting = false;
-                SetHarvestAnimation(false);
-            }
+                resourceBeingGathered.GetComponent<Resource>().StopGathering(this); //stops coroutine only on this unit
             unit.isGatheringRoutine = false;
             resourceBeingGathered = null;
-            StopAllCoroutines();
         }
     }
 
