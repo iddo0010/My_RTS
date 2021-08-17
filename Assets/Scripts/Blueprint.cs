@@ -11,8 +11,10 @@ public class Blueprint : MonoBehaviour
     Renderer renderer;
 
     Quaternion newRot;
+
+    List<GameObject> selectedBuildersList = new List<GameObject>(); //List of all selected unit that equip weapon that can build
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         newRot = transform.rotation;
         renderer = GetComponent<Renderer>();
@@ -23,11 +25,22 @@ public class Blueprint : MonoBehaviour
         {
             transform.position = hit.point;
         }
+
+        foreach(GameObject unit in SelectionManager.instance.selectedUnits)//runs on all selected unit, if unit can build, adds to the list
+        {
+            if (unit.GetComponent<UnitEngine>().mainWeapon.canBuild)
+                selectedBuildersList.Add(unit);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetMouseButton(1))
+        {
+            UnitGUI.instance.isBluePrintEnabled = false;
+            Destroy(gameObject);
+        }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
@@ -41,7 +54,11 @@ public class Blueprint : MonoBehaviour
             {
                 UnitGUI.instance.isBluePrintEnabled = false;
                 ResourceManager.instance.ReduceAmount(building.woodCost, building.stoneCost, transform.position);
-                Instantiate(building.prefab, transform.position, transform.rotation);
+                Transform newBuilding = Instantiate(building.prefab, transform.position, transform.rotation);
+                foreach (GameObject unit in selectedBuildersList)//Send all builders to the new building 
+                {
+                    unit.GetComponent<UnitEngine>().GoToTarget(newBuilding.gameObject);
+                }
                 Destroy(gameObject);
             }
         }

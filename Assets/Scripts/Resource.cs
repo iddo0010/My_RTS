@@ -72,7 +72,7 @@ public class Resource : MonoBehaviour
             for (int i = 0; i <= (delay * 5); i++)
             {
                 yield return new WaitForSeconds(delay);
-                if (unitEngine.unit.isGatheringRoutine)
+                if (unitEngine.unit.isHarvesting)
                 {
                     Debug.Log("Tick");
                     quantity--;

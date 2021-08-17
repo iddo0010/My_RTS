@@ -23,15 +23,15 @@ public class UnitEngine : MonoBehaviour
 
     public GameObject resourceBeingGathered;
     ResourceType lastResource;
-    GameObject stockTarget;
+    //GameObject stockTarget;
 
     [SerializeField] float searchRadius;
     [SerializeField] LayerMask resourceLayer;
 
     public Weapon mainWeapon;
     public Weapon offWeapon;
-    //public Quaternion newDir;
-    //public Vector3 targetDirection;
+
+    GameObject targetToFind;
     // Start is called before the first frame update
     void Awake()
     {
@@ -45,7 +45,7 @@ public class UnitEngine : MonoBehaviour
         anm = GetComponent<Animator>();
         unitSelectionCircle.SetActive(false);
         resourceBeingGathered = null;
-        stockTarget = null;
+        //stockTarget = null;
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject temp = transform.GetChild(i).gameObject;
@@ -55,6 +55,7 @@ public class UnitEngine : MonoBehaviour
             }
         }
         isUnitVisable = true;
+        targetToFind = null;
     }
 
     // Update is called once per frame
@@ -71,28 +72,30 @@ public class UnitEngine : MonoBehaviour
                 {
                     if (resourceBeingGathered == null)
                         SendToHarvest(lastResource);
-                    else
-                    {
-                        if (!unit.isHarvesting)
-                        {
-                            FindTarget(resourceBeingGathered);
-                        }
-                    }
+                    //else
+                    //{
+                    //    if (!unit.isHarvesting)
+                    //        targetToFind = resourceBeingGathered;
+                    //}
                 }
-                else
-                {
-                    if (stockTarget != null)
-                        FindTarget(stockTarget);
-                    else
-                    {
-                        unit.isHarvesting = false;
-                        SetHarvestAnimation(false);
-                        unit.isGatheringRoutine = false;
-                        resourceBeingGathered = null;
-                        StopAllCoroutines();
-                    }
-                }
+                //else
+                //{
+                //    if (stockTarget != null)
+                //        //FindTarget(stockTarget);
+                //        targetToFind = stockTarget;
+                //    else
+                //    {
+                //        unit.isHarvesting = false;
+                //        SetHarvestAnimation(false);
+                //        unit.isGatheringRoutine = false;
+                //        resourceBeingGathered = null;
+                //        StopAllCoroutines();
+                //    }
+                //}
             }
+
+            if (targetToFind != null)// TODO
+                FindTarget(targetToFind);
         }
     }
 
@@ -199,7 +202,7 @@ public class UnitEngine : MonoBehaviour
     /// <param name="type">type of the recource</param>
     public void SendToStockPile(ResourceType type)
     {
-        stockTarget = ResourceManager.instance.FindNearesStockPile(transform.position, ResourceType.Tree)[0];
+        GameObject stockTarget = ResourceManager.instance.FindNearesStockPile(transform.position, type)[0];
         if (stockTarget != null)
             GoToTarget(stockTarget.transform.Find("UnloadSpot").gameObject);
     }
@@ -209,9 +212,7 @@ public class UnitEngine : MonoBehaviour
     /// <param name="stockPile">stockpile the user has clicked on</param>
     public void SendToStockPile(Transform stockPile)
     {
-        //TODO - Change to GoToTarget Method
-        agent.SetDestination(stockPile.Find("UnloadSpot").position);
-        //StartCoroutine(UnloadRsource(stockPile.gameObject));
+        GoToTarget(stockPile.Find("UnloadSpot").gameObject);
     }
     /// <summary>
     /// Send Unit to Harvset the corrent resource, if there is none, finds the nearest target by Resource Type
@@ -223,7 +224,6 @@ public class UnitEngine : MonoBehaviour
         if (resourceBeingGathered != null)
         {
             GoToTarget(resourceBeingGathered);
-            //StartCoroutine(GatherResource(resourceBeingGathered));
         }
         else
         {
@@ -242,7 +242,6 @@ public class UnitEngine : MonoBehaviour
                     }
                 }
                 GoToTarget(nearestResource);
-                //StartCoroutine(GatherResource(nearestResource));
             }
         }
     }
@@ -253,6 +252,7 @@ public class UnitEngine : MonoBehaviour
     public void GoToTarget(GameObject target)
     {
         agent.SetDestination(target.transform.position);
+        targetToFind = target;
         switch (target.layer)
         {
             case 9: //Resource Layer
@@ -262,9 +262,6 @@ public class UnitEngine : MonoBehaviour
                     unit.isGatheringRoutine = true;
                     lastResource = target.GetComponent<Resource>().type;
                 }
-                break;
-            case 11: //Building Layer
-                stockTarget = target;
                 break;
         }      
     }
@@ -281,29 +278,28 @@ public class UnitEngine : MonoBehaviour
             if (c.gameObject == target)
             {
                 agent.ResetPath();
+                targetToFind = null;
                 switch (target.layer)
                 {
                     case 9: //Resource Layer
                         c.GetComponent<Resource>().Gather(this);
-                        //Vector3 targetDirection = (target.transform.position - transform.position).normalized;
-                        //Quaternion newDir = Quaternion.LookRotation(targetDirection);
-                        //if (Quaternion.Angle(transform.rotation, newDir) > 2f)
-                        //    transform.rotation = Quaternion.Slerp(transform.rotation, newDir, Time.deltaTime);
-                        //else
-                        //{
-                        //    
-                        //}
                         break;
                     case 11: //Building Layer
-                        if (target.tag.Equals("StockPile"))
+                        BuildingOpacity buildingOpacity;
+                        if (target.TryGetComponent<BuildingOpacity>(out buildingOpacity)) // if building is in build process
                         {
-                            GameObject stockPile = target.transform.parent.gameObject;
-                            ResourceManager.instance.Unload(unit, stockPile.GetComponent<StockEngine>().type, stockPile);
-                            SendToHarvest(stockPile.GetComponent<StockEngine>().type);
+
                         }
                         else
                         {
-
+                            switch (target.tag)
+                            {
+                                case "StockPile":
+                                    GameObject stockPile = target.transform.parent.gameObject;
+                                    ResourceManager.instance.Unload(unit, stockPile.GetComponent<StockEngine>().type, stockPile);
+                                    SendToHarvest(stockPile.GetComponent<StockEngine>().type);
+                                    break;
+                            }
                         }
                         break;
                 }

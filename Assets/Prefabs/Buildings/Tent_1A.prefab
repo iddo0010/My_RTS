@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6013142542208507248}
   - component: {fileID: 6003944945205596144}
   - component: {fileID: 3066485177505493799}
+  - component: {fileID: 2488646509345285021}
   m_Layer: 0
   m_Name: Tent_1A
   m_TagString: Untagged
@@ -93,3 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.987112, y: 2.9867156, z: 4.3488464}
   m_Center: {x: 0.0017852783, y: 1.0955077, z: 0.013504028}
+--- !u!208 &2488646509345285021
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5981726969874892352}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.493556, y: 1.493358, z: 2.174423}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.001785278, y: 1.095508, z: 0.01350403}
+  m_TimeToStationary: 0.5
