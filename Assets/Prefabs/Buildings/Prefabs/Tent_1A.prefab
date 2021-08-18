@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5983123349737752964}
   - component: {fileID: 6013142542208507248}
   - component: {fileID: 6003944945205596144}
-  - component: {fileID: 406799622746302635}
-  - component: {fileID: 1387198619524969476}
-  m_Layer: 0
-  m_Name: Tent_1A_Blueprint
+  - component: {fileID: 3066485177505493799}
+  - component: {fileID: 2488646509345285021}
+  m_Layer: 11
+  m_Name: Tent_1A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5981726969874892352}
-  m_LocalRotation: {x: -0, y: -0.0033263993, z: -0, w: 0.9999945}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 75.2651, y: 0.13, z: 138.61882}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -0.381, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6013142542208507248
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 581516f33a65f49499801480607a35f3, type: 2}
+  - {fileID: 2100000, guid: bd9284f96966df94f81ae3e01487058f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,24 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &406799622746302635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5981726969874892352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4c353bd75afad8499ae24d172615464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  building: {fileID: 11400000, guid: aad62675aea7ff44c9566906b2e477dd, type: 2}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  rotationAmount: 1
---- !u!65 &1387198619524969476
+--- !u!65 &3066485177505493799
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,3 +94,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.987112, y: 2.9867156, z: 4.3488464}
   m_Center: {x: 0.0017852783, y: 1.0955077, z: 0.013504028}
+--- !u!208 &2488646509345285021
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5981726969874892352}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.493556, y: 1.493358, z: 2.174423}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.001785278, y: 1.095508, z: 0.01350403}
+  m_TimeToStationary: 0.5

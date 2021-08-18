@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Blueprint : MonoBehaviour
 {
-    [SerializeField] BuildingSettings building;
+    public BuildingSettings building;
+
     [SerializeField] LayerMask groundLayer;
     [SerializeField] int rotationAmount;
 
@@ -54,7 +55,8 @@ public class Blueprint : MonoBehaviour
             {
                 UnitGUI.instance.isBluePrintEnabled = false;
                 ResourceManager.instance.ReduceAmount(building.woodCost, building.stoneCost, transform.position);
-                Transform newBuilding = Instantiate(building.prefab, transform.position, transform.rotation);
+                Transform newBuilding = Instantiate(building.construction, transform.position, transform.rotation);
+                newBuilding.GetComponent<ConstructBuilding>().building = this.building;
                 foreach (GameObject unit in selectedBuildersList)//Send all builders to the new building 
                 {
                     unit.GetComponent<UnitEngine>().GoToTarget(newBuilding.gameObject);
@@ -82,7 +84,7 @@ public class Blueprint : MonoBehaviour
     /// Check if the blueprint is place in a valid space
     /// </summary>
     /// <returns>true for ok</returns>
-    private bool CanSpawnBuilding()
+    private bool CanSpawnBuilding() //TODO - Change all child colors
     {
         BoxCollider blueprintCollider = GetComponent<BoxCollider>();
         Vector3 worldCenter = blueprintCollider.transform.TransformPoint(blueprintCollider.center);
@@ -95,7 +97,7 @@ public class Blueprint : MonoBehaviour
         }
         else
         {
-            renderer.material.color = new Color32(60, 108, 73, 255);//change color to green
+            renderer.material.color = new Color32(63, 89, 91, 255);//change color to green
             return true;
         }
     }

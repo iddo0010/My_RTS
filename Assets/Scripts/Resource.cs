@@ -17,18 +17,27 @@ public class Resource : MonoBehaviour
 
     public ResourceType type;
 
-    List<UnitEngine> unitsGathering = new List<UnitEngine>();
+
+    public Dictionary<Collider, Coroutine> colliders; 
+    Coroutine routine;
+
+    public void Awake()
+    {
+        colliders = new Dictionary<Collider, Coroutine>();
+        routine = null;
+    }
 
     public void Update()
     {
         if (quantity <= 0)
         {
             StopAllCoroutines();
-            foreach (UnitEngine u in unitsGathering)
+            foreach (KeyValuePair<Collider,Coroutine> pair in colliders) ///Disables all units currently harvesting if the resource has been destroyed
             {
-                u.resourceBeingGathered = null;
-                u.unit.isHarvesting = false;
-                u.SetHarvestAnimation(false);
+                UnitEngine unit = pair.Key.gameObject.GetComponent<UnitEngine>();
+                unit.resourceBeingGathered = null;
+                unit.unit.isHarvesting = false;
+                unit.SetAnimation("isHarvesting" , false);
             }
             Destroy(gameObject);
             if (type.Equals(ResourceType.Tree))
@@ -44,14 +53,15 @@ public class Resource : MonoBehaviour
         //TODO - Reduce Movement speed while carry resource
         if (!unitEngine.unit.IsBagFull())
         {
-            unitsGathering.Add(unitEngine);
             switch (type)
             {
                 case ResourceType.Tree:
-                    StartCoroutine(HarvestWood(unitEngine));
+                    routine = StartCoroutine(HarvestWood(unitEngine));
+                    colliders.Add(unitEngine.GetComponent<CapsuleCollider>(), routine);
                     break;
                 case ResourceType.Stone:
-                    StartCoroutine(HarvestStone(unitEngine));
+                    routine = StartCoroutine(HarvestStone(unitEngine));
+                    colliders.Add(unitEngine.GetComponent<CapsuleCollider>(), routine);
                     break;
             }
         }
@@ -59,35 +69,27 @@ public class Resource : MonoBehaviour
 
 
     /// <summary>
-    /// Collects Wood by Ticks, sends back to stockpile if unit bag is full, sends looking for more resources if the resource has been destoryed
+    /// Collects Wood by Ticks, sends back to stockpile if unit bag is full.
     /// </summary>
     /// <param name="unitEngine">Unit Harvesting</param>
     /// <returns></returns>
     public IEnumerator HarvestWood(UnitEngine unitEngine)
     {
-        if(unitEngine.mainWeapon.type == weaponType.HarvestingAxe)
-        { 
-        unitEngine.unit.isHarvesting = true;
-        unitEngine.SetHarvestAnimation(true);
+        if (unitEngine.mainWeapon.type == weaponType.HarvestingAxe)
+        {
+            unitEngine.unit.isHarvesting = true;
+            unitEngine.SetAnimation("isHarvesting" , true);
             for (int i = 0; i <= (delay * 5); i++)
             {
                 yield return new WaitForSeconds(delay);
-                if (unitEngine.unit.isHarvesting)
+                Debug.Log("Tick");
+                quantity--;
+                unitEngine.unit.resourceCarry[type]++;
+                if (unitEngine.unit.IsBagFull()) // if the units bag is full, break
                 {
-                    Debug.Log("Tick");
-                    quantity--;
-                    unitEngine.unit.resourceCarry[type]++;
-                    if (unitEngine.unit.IsBagFull())
-                    {
-                        unitEngine.unit.isHarvesting = false;
-                        unitEngine.SetHarvestAnimation(false);
-                        unitEngine.SendToStockPile(type);
-                        unitsGathering.Remove(unitEngine);
-                        break;
-                    }
+                    StopGathering(unitEngine);
+                    unitEngine.SendToStockPile(type);
                 }
-                else
-                    break;
             }
         }
     }
@@ -108,19 +110,34 @@ public class Resource : MonoBehaviour
                 Debug.Log("Tick");
                 quantity--;
                 unitEngine.unit.resourceCarry[type]++;
-                if (unitEngine.unit.IsBagFull())
+                if (unitEngine.unit.IsBagFull())// if the units bag is full, break
                 {
-                    unitEngine.unit.isHarvesting = false;
-                    unitEngine.ActivateUnit(true);
+                    StopGathering(unitEngine);
                     unitEngine.SendToStockPile(type);
-                    unitsGathering.Remove(unitEngine);
-                    break;
                 }
             }
         }
     }
 
-
+    /// <summary>
+    /// Stops Single unit from gathering and disables its Coroutine
+    /// </summary>
+    /// <param name="unitEngine">unit</param>
+    public void StopGathering(UnitEngine unitEngine)
+    {
+        switch (type)
+        {
+            case ResourceType.Tree:
+                unitEngine.SetAnimation("isHarvesting" , false);
+                break;
+            case ResourceType.Stone:
+                unitEngine.ActivateUnit(true);
+                break;
+        }
+        StopCoroutine(colliders[unitEngine.GetComponent<CapsuleCollider>()]); //stops a specific coroutine according to unit
+        unitEngine.unit.isHarvesting = false;
+        colliders.Remove(unitEngine.GetComponent<CapsuleCollider>());//removes unit from the dictionary
+    }
 
 }
 

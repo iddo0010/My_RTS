@@ -9,7 +9,7 @@ public class StockEngine : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
+        //Add new StockEngine To the stocks list in resource manager
     }
     /// <summary>
     /// Visually Adds x  amount of Resources to the Stock Pile 

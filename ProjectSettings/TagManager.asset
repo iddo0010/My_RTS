@@ -10,6 +10,7 @@ TagManager:
   - Stone
   - Ground
   - TargetCommand
+  - Construction
   layers:
   - Default
   - TransparentFX

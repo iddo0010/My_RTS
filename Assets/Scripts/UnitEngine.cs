@@ -70,31 +70,11 @@ public class UnitEngine : MonoBehaviour
             {
                 if (!unit.IsBagFull())
                 {
-                    if (resourceBeingGathered == null)
+                    if (resourceBeingGathered == null)// Go Looking for new resource if the unit is currently in gathering routine and the resource has been destroyed
                         SendToHarvest(lastResource);
-                    //else
-                    //{
-                    //    if (!unit.isHarvesting)
-                    //        targetToFind = resourceBeingGathered;
-                    //}
                 }
-                //else
-                //{
-                //    if (stockTarget != null)
-                //        //FindTarget(stockTarget);
-                //        targetToFind = stockTarget;
-                //    else
-                //    {
-                //        unit.isHarvesting = false;
-                //        SetHarvestAnimation(false);
-                //        unit.isGatheringRoutine = false;
-                //        resourceBeingGathered = null;
-                //        StopAllCoroutines();
-                //    }
-                //}
             }
-
-            if (targetToFind != null)// TODO
+            if (targetToFind != null)
                 FindTarget(targetToFind);
         }
     }
@@ -112,12 +92,13 @@ public class UnitEngine : MonoBehaviour
     }
 
     /// <summary>
-    /// Activate/Deactivate Harvest Animation
+    /// Activate/Deactivate specific Animation
     /// </summary>
-    /// <param name="isHarvest"></param>
-    public void SetHarvestAnimation(bool isHarvest)
+    /// <param name="animation">name</param>
+    /// <param name="enable">true for enable</param>
+    public void SetAnimation(string animation, bool enable)
     {
-        anm.SetBool("isHarvesting", isHarvest);
+        anm.SetBool(animation, enable);
     }
     /// <summary>
     /// Check For User Command Over Unit, Move Unit Accordingly
@@ -141,37 +122,23 @@ public class UnitEngine : MonoBehaviour
     {
         if (!SelectionManager.instance.IsMouseOverUI())
         {
-            if (unit.isGatheringRoutine) // Disable Gathering if unit has been moved during Process
-            {
-                if (unit.isHarvesting)
-                {
-                    unit.isHarvesting = false;
-                    SetHarvestAnimation(false);
-                }
-                unit.isGatheringRoutine = false;
-                resourceBeingGathered = null;
-                StopAllCoroutines();
-            }
+            CancelCurrentAction();
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                switch (hit.transform.tag)
+                switch (hit.transform.gameObject.layer)
                 {
-                    case "Tree":
+                    case 9: //Resource Layer
                         Instantiate(resourceCommand, hit.transform.position, resourceCommand.transform.rotation);
                         GoToTarget(hit.transform.gameObject);
                         break;
-                    case "Stone":
-                        Instantiate(resourceCommand, hit.transform.position, resourceCommand.transform.rotation);
-                        GoToTarget(hit.transform.gameObject);
-                        break;
-                    case "StockPile":
-                        SendToStockPile(hit.transform);
-                        break;
-                    case "Ground":
+                    case 10://Ground Layer
                         Instantiate(moveCommand, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), resourceCommand.transform.rotation);
                         agent.SetDestination(hit.point);
+                        break;
+                    case 11://Building Layer
+                        GoToTarget(hit.transform.gameObject);
                         break;
                 }
 
@@ -204,15 +171,7 @@ public class UnitEngine : MonoBehaviour
     {
         GameObject stockTarget = ResourceManager.instance.FindNearesStockPile(transform.position, type)[0];
         if (stockTarget != null)
-            GoToTarget(stockTarget.transform.Find("UnloadSpot").gameObject);
-    }
-    /// <summary>
-    /// Manually Send a Unit to stockpile by user input
-    /// </summary>
-    /// <param name="stockPile">stockpile the user has clicked on</param>
-    public void SendToStockPile(Transform stockPile)
-    {
-        GoToTarget(stockPile.Find("UnloadSpot").gameObject);
+            GoToTarget(stockTarget);
     }
     /// <summary>
     /// Send Unit to Harvset the corrent resource, if there is none, finds the nearest target by Resource Type
@@ -263,7 +222,11 @@ public class UnitEngine : MonoBehaviour
                     lastResource = target.GetComponent<Resource>().type;
                 }
                 break;
-        }      
+            case 11://Building Layer
+                if (target.tag == "StockPile")
+                    targetToFind = target.transform.Find("UnloadSpot").gameObject;
+                break;
+        }     
     }
 
     /// <summary>
@@ -282,24 +245,20 @@ public class UnitEngine : MonoBehaviour
                 switch (target.layer)
                 {
                     case 9: //Resource Layer
-                        c.GetComponent<Resource>().Gather(this);
+                        target.GetComponent<Resource>().Gather(this);
                         break;
                     case 11: //Building Layer
-                        BuildingOpacity buildingOpacity;
-                        if (target.TryGetComponent<BuildingOpacity>(out buildingOpacity)) // if building is in build process
+                        switch (target.tag)
                         {
-
-                        }
-                        else
-                        {
-                            switch (target.tag)
-                            {
-                                case "StockPile":
-                                    GameObject stockPile = target.transform.parent.gameObject;
-                                    ResourceManager.instance.Unload(unit, stockPile.GetComponent<StockEngine>().type, stockPile);
-                                    SendToHarvest(stockPile.GetComponent<StockEngine>().type);
-                                    break;
-                            }
+                            case "StockPile":
+                                GameObject stockPile = target.transform.parent.gameObject;
+                                ResourceManager.instance.Unload(unit, stockPile.GetComponent<StockEngine>().type, stockPile);
+                                SendToHarvest(stockPile.GetComponent<StockEngine>().type);
+                                break;
+                            case "Construction":
+                                if (mainWeapon.canBuild)
+                                    target.GetComponent<ConstructBuilding>().StartBuildProcess(this);
+                                break;
                         }
                         break;
                 }
@@ -329,16 +288,24 @@ public class UnitEngine : MonoBehaviour
     public void CancelCurrentAction()
     {
         agent.ResetPath();
-        if(unit.isGatheringRoutine)
+        if (unit.isGatheringRoutine) // Disable Gathering if unit has been moved during Process
         {
             if (unit.isHarvesting)
-            {
-                unit.isHarvesting = false;
-                SetHarvestAnimation(false);
-            }
+                resourceBeingGathered.GetComponent<Resource>().StopGathering(this); //stops coroutine only on this unit
             unit.isGatheringRoutine = false;
             resourceBeingGathered = null;
-            StopAllCoroutines();
+        }
+        if(unit.isBuilding)
+        {
+            Collider[] collidersInRange = Physics.OverlapSphere(transform.position, searchRadius);
+            foreach (Collider c in collidersInRange)
+            {
+                ConstructBuilding building;
+                if (c.gameObject.TryGetComponent<ConstructBuilding>(out building))
+                {
+                    building.StopBuilding(this);
+                }
+            }
         }
     }
 

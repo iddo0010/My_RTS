@@ -9,6 +9,7 @@ public class Unit
     public bool isMoving;
     public bool isGatheringRoutine;
     public bool isHarvesting;
+    public bool isBuilding;
     public int bagSize;
     public Dictionary<ResourceType, int> resourceCarry;
     public float hp;
