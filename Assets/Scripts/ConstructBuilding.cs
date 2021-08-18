@@ -21,7 +21,8 @@ public class ConstructBuilding : MonoBehaviour
     {
         if(constructionAmount <= 0)
         {
-            Instantiate(building.prefab, transform.position, transform.rotation);
+            int rand = Random.Range(0, building.prefab.Length - 1);
+            Instantiate(building.prefab[rand], transform.position, transform.rotation);
             StopAllCoroutines();
             foreach (KeyValuePair<Collider, Coroutine> pair in colliders) ///Disables all units currently building
             {

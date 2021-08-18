@@ -94308,10 +94308,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 213330925}
     m_Modifications:
+    - target: {fileID: 4523076341649797113, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4523264525520351487, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
       propertyPath: m_Name
       value: Prehistoric_Male_Avatar_V1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523379623680643539, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523853305083554481, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
@@ -95895,7 +95910,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 11400000, guid: 56bae362c67fea440b0bfd4096407cac,
+      objectReference: {fileID: 11400000, guid: aad62675aea7ff44c9566906b2e477dd,
         type: 2}
     - target: {fileID: 5592821358788611922, guid: d4d47d40029288742bbae654e87c8fc4,
         type: 3}

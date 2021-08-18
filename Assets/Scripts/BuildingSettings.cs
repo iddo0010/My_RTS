@@ -6,7 +6,7 @@ using UnityEngine;
 public class BuildingSettings : ScriptableObject
 {
     public string name;
-    public Transform prefab;
+    public Transform[] prefab;
     public Transform bluePrint;
     public Transform construction;
     public Transform visual;

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4044c32cc0e17c145aefad698e6f420d, type: 3}
+  m_Name: BigTent
+  m_EditorClassIdentifier: 
+  name: Big Tent
+  prefab:
+  - {fileID: 4451154524841844, guid: d6a27d6caabbcdb4cb659ca50ad780b5, type: 3}
+  - {fileID: 4983401492236902, guid: c280de3b452707f4b9efac16acd09972, type: 3}
+  - {fileID: 4363518232442618, guid: 022412fe2c0ff684cb3f1f9397d5cc51, type: 3}
+  - {fileID: 4626788262529098, guid: 0009e72f8bce6254d8a5d58c195bf688, type: 3}
+  bluePrint: {fileID: 4451154524841844, guid: d4cda936ea6fe244d9c4e7b2069101d3, type: 3}
+  construction: {fileID: 3696698177216468207, guid: 9bb37ed89c25deb42acb5f3ff1f193b1,
+    type: 3}
+  visual: {fileID: 400000, guid: 3512a54ce80a81048b3d2996995d38b9, type: 3}
+  woodCost: 10
+  stoneCost: 0
+  constructionDelay: 1
+  countructionAmount: 10

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2660356094060239774}
   - component: {fileID: 1045849826094380977}
   - component: {fileID: 5983054917242402859}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Workshop_1A_Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 7649619801376720155}
   - component: {fileID: 5013867796148355732}
   - component: {fileID: 5188290777810017355}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Workshop
   m_TagString: Untagged
   m_Icon: {fileID: 0}

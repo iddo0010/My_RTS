@@ -32,8 +32,8 @@ public class ResourceManager : MonoBehaviour
         maxTree = treeStocks.Count * 128;
         maxStone = stoneStocks.Count * 125;
         maxFood = 0;
-        resources.Add(ResourceType.Tree, 10);
-        resources.Add(ResourceType.Stone, 0);
+        resources.Add(ResourceType.Tree, 30);
+        resources.Add(ResourceType.Stone, 30);
         resources.Add(ResourceType.Food, 0);
         UpdateUI();
     }

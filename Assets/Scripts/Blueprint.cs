@@ -8,6 +8,7 @@ public class Blueprint : MonoBehaviour
 
     [SerializeField] LayerMask groundLayer;
     [SerializeField] int rotationAmount;
+    [SerializeField] int rangeRadius;
 
     Renderer renderer;
 
@@ -98,12 +99,19 @@ public class Blueprint : MonoBehaviour
         else
         {
             renderer.material.color = new Color32(63, 89, 91, 255);//change color to green
-            return true;
         }
+        Collider[] buildingsInRange = Physics.OverlapSphere(transform.position, rangeRadius, 1<<11);
+        if (buildingsInRange.Length > 1)
+            return true;
+        else
+            renderer.material.color = new Color32(225, 108, 73, 255);//change color to red
+        return false;
     }
 
     private void OnDrawGizmos()
     {
+        //OverLap Box
+
         BoxCollider blueprintCollider = GetComponent<BoxCollider>();
         Color prevColor = Gizmos.color;
         Matrix4x4 prevMatrix = Gizmos.matrix;
@@ -122,5 +130,8 @@ public class Blueprint : MonoBehaviour
         // restore previous Gizmos settings
         Gizmos.color = prevColor;
         Gizmos.matrix = prevMatrix;
+
+        //OverLap Shpere
+        Gizmos.DrawWireSphere(transform.position, rangeRadius);
     }
 }

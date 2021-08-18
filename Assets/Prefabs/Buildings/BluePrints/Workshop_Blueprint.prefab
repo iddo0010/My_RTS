@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2660356094060239774}
   - component: {fileID: 1045849826094380977}
   - component: {fileID: 5983054917242402859}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Workshop_1A_Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 7649619801376720155}
   - component: {fileID: 261869706274582791}
   - component: {fileID: 7846164071372146222}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Workshop_Blueprint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,6 +179,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   rotationAmount: 1
+  rangeRadius: 20
 --- !u!65 &7846164071372146222
 BoxCollider:
   m_ObjectHideFlags: 0

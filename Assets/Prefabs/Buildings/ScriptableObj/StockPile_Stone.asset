@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: StockPile_Stone
   m_EditorClassIdentifier: 
   name: StockPile Stone
-  prefab: {fileID: 2602086783728515584, guid: d3be80db61180ae4b8e36d25ae312f84, type: 3}
+  prefab:
+  - {fileID: 2602086783728515584, guid: d3be80db61180ae4b8e36d25ae312f84, type: 3}
   bluePrint: {fileID: 5176522457999085067, guid: 4976681c6167d8945862da9bb8d094ca,
     type: 3}
   construction: {fileID: 8200514778766585121, guid: 73842f7062455ee4591234b1df35fb17,

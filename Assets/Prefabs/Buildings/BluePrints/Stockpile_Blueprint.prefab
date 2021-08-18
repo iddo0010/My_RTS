@@ -111,3 +111,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   rotationAmount: 1
+  rangeRadius: 20

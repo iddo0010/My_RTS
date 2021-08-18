@@ -105,7 +105,7 @@ public class UnitEngine : MonoBehaviour
     /// </summary>
     private void CheckForUserInput()
     {
-        if (!SelectionManager.instance.isSetTargetMode)
+        if (!SelectionManager.instance.isSetTargetMode && !UnitGUI.instance.isBluePrintEnabled)
         {
             if (Input.GetMouseButtonDown(1))
             {

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7860157287855956913
+--- !u!1 &1450122412707664
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3696698177216468207}
-  - component: {fileID: 3789752693464767862}
-  - component: {fileID: 3594788910652853896}
-  - component: {fileID: -8112859245055800324}
-  - component: {fileID: -9204914563502684125}
+  - component: {fileID: 4203679767140778}
+  - component: {fileID: 33662879262653894}
+  - component: {fileID: 23277808272345374}
+  - component: {fileID: 8558708779500247665}
+  - component: {fileID: 4686200587987060812}
   m_Layer: 11
-  m_Name: Wood_Pile
-  m_TagString: Construction
+  m_Name: Tower_A
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3696698177216468207
+--- !u!4 &4203679767140778
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860157287855956913}
+  m_GameObject: {fileID: 1450122412707664}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3789752693464767862
+--- !u!33 &33662879262653894
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860157287855956913}
-  m_Mesh: {fileID: 4300000, guid: fd653d8ffef5899458bfb0dbbcf9c9a5, type: 3}
---- !u!23 &3594788910652853896
+  m_GameObject: {fileID: 1450122412707664}
+  m_Mesh: {fileID: 4300000, guid: d67abea15c6da49bdb15f2551fb95d60, type: 3}
+--- !u!23 &23277808272345374
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860157287855956913}
+  m_GameObject: {fileID: 1450122412707664}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b2afde32c0c444a93a43d9ff17de27f6, type: 2}
+  - {fileID: 2100000, guid: cb0e1e1460ba64f21adcc59727036be1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,29 +81,32 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-8112859245055800324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860157287855956913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46d8483b56be0ac409d0fb757355f5f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  building: {fileID: 0}
---- !u!65 &-9204914563502684125
+--- !u!65 &8558708779500247665
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7860157287855956913}
+  m_GameObject: {fileID: 1450122412707664}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2962439, y: 0.6525335, z: 2.0580888}
-  m_Center: {x: -0.016943216, y: 0.30856678, z: -0.053011596}
+  m_Size: {x: 4.8797884, y: 11.617844, z: 6.088729}
+  m_Center: {x: -0.07716143, y: 5.1751547, z: 0.6977335}
+--- !u!208 &4686200587987060812
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450122412707664}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.44, y: 5.8090005, z: 3.0440001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.07700001, y: 5.175, z: 0.698}
+  m_TimeToStationary: 0.5
