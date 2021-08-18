@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public enum ResourceType
 {
-    Tree, Stone, Food,
+    Tree, Stone, Food, Gold,
 }
 public class Resource : MonoBehaviour
 {

@@ -132,7 +132,7 @@ public class UnitGUI : MonoBehaviour
     }
     public void ActivateBluePrint(BuildingSettings building)
     {
-        if (!isBluePrintEnabled && ResourceManager.instance.CanBuild(building.woodCost, building.stoneCost))
+        if (!isBluePrintEnabled && ResourceManager.instance.CanBuild(building.woodCost, building.stoneCost, building.goldCost))
         {
             isBluePrintEnabled = true;
             Transform newBuilding = Instantiate(building.bluePrint);

@@ -21,5 +21,9 @@ MonoBehaviour:
   visual: {fileID: 400000, guid: d67abea15c6da49bdb15f2551fb95d60, type: 3}
   woodCost: 5
   stoneCost: 0
+  goldCost: 0
   constructionDelay: 1
   countructionAmount: 10
+  upgradeList:
+  - {fileID: 4339848499165616, guid: 4b8a3305e2ad753478f144fe3971751b, type: 3}
+  - {fileID: 4486324118453414, guid: d07dd68fd82332b46baef31ee2d56401, type: 3}

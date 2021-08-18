@@ -12,7 +12,9 @@ public class BuildingSettings : ScriptableObject
     public Transform visual;
     public int woodCost;
     public int stoneCost;
+    public int goldCost;
     public int constructionDelay;
     public int countructionAmount;
+    public Transform[] upgradeList;
 
 }

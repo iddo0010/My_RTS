@@ -32,9 +32,10 @@ public class ResourceManager : MonoBehaviour
         maxTree = treeStocks.Count * 128;
         maxStone = stoneStocks.Count * 125;
         maxFood = 0;
-        resources.Add(ResourceType.Tree, 30);
-        resources.Add(ResourceType.Stone, 30);
+        resources.Add(ResourceType.Tree, 7);
+        resources.Add(ResourceType.Stone, 0);
         resources.Add(ResourceType.Food, 0);
+        resources.Add(ResourceType.Gold, 0);
         UpdateUI();
     }
 
@@ -79,15 +80,17 @@ public class ResourceManager : MonoBehaviour
         stoneText.text = resources[ResourceType.Stone] + " / " + maxStone.ToString();
         //foodText.text = resources[ResourceType.food] + " / " + foodStock.ToString();
     }
+
     /// <summary>
     /// Checks if there are enugh resorces to build
     /// </summary>
     /// <param name="treePrice">wood cost</param>
     /// <param name="stonePrice">stone cost</param>
+    /// <param name="goldPrice">gold cost</param>
     /// <returns>true for enugh resouces</returns>
-    public bool CanBuild(int treePrice, int stonePrice)
+    public bool CanBuild(int treePrice, int stonePrice ,int goldPrice)
     {
-        if (resources[ResourceType.Tree] >= treePrice && resources[ResourceType.Stone] >= stonePrice)
+        if (resources[ResourceType.Tree] >= treePrice && resources[ResourceType.Stone] >= stonePrice && resources[ResourceType.Gold] >= goldPrice)
             return true;
         else
             return false;
@@ -152,12 +155,15 @@ public class ResourceManager : MonoBehaviour
     /// <param name="treePrice">wood amount</param>
     /// <param name="stonePrice">stone amount</param>
     /// <param name="position">position of the building being build</param>
-    public void ReduceAmount(int treePrice, int stonePrice, Vector3 position)
+    public void ReduceAmount(int treePrice, int stonePrice, int goldPrice, Vector3 position)
     {
         if (treePrice > 0)
             ReduceWood(treePrice, position);
         if (stonePrice > 0)
             ReduceStone(stonePrice, position);
+        if (goldPrice > 0)
+            resources[ResourceType.Gold] -= goldPrice;
+        UpdateUI();
     }
     /// <summary>
     /// Reduces amount of wood from the resource manager
@@ -167,7 +173,6 @@ public class ResourceManager : MonoBehaviour
     public void ReduceWood(int treePrice, Vector3 pos)
     {
         resources[ResourceType.Tree] -= treePrice;
-        UpdateUI();
         List<GameObject> nearestStockList = FindNearesStockPile(pos, ResourceType.Tree);
         for(int i=0; i<nearestStockList.Count;i++) //Visually removes the amount given, from the nearest stockpile onwards
         {
@@ -184,7 +189,6 @@ public class ResourceManager : MonoBehaviour
     public void ReduceStone(int stonePrice, Vector3 pos)
     {
         resources[ResourceType.Stone] -= stonePrice;
-        UpdateUI();
         List<GameObject> nearestStockList = FindNearesStockPile(pos, ResourceType.Stone);
         for (int i = 0; i < nearestStockList.Count; i++)//Visually removes the amount given, from the nearest stockpile onwards
         {

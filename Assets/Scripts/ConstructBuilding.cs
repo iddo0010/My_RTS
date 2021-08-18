@@ -5,6 +5,7 @@ using UnityEngine;
 public class ConstructBuilding : MonoBehaviour
 {
     public BuildingSettings building;
+    public GameObject prefab;
 
     public Dictionary<Collider, Coroutine> colliders;// Dictionary with all the units currently working on this building, and their Corotuines
     Coroutine routine;
@@ -21,8 +22,7 @@ public class ConstructBuilding : MonoBehaviour
     {
         if(constructionAmount <= 0)
         {
-            int rand = Random.Range(0, building.prefab.Length - 1);
-            Instantiate(building.prefab[rand], transform.position, transform.rotation);
+            Instantiate(prefab, transform.position, transform.rotation);
             StopAllCoroutines();
             foreach (KeyValuePair<Collider, Coroutine> pair in colliders) ///Disables all units currently building
             {

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23277808272345374}
   - component: {fileID: 8558708779500247665}
   - component: {fileID: 4686200587987060812}
+  - component: {fileID: -426922253340563561}
   m_Layer: 11
   m_Name: Tower_A
   m_TagString: Untagged
@@ -92,8 +93,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.8797884, y: 11.617844, z: 6.088729}
-  m_Center: {x: -0.07716143, y: 5.1751547, z: 0.6977335}
+  m_Size: {x: 5.71516, y: 11.617844, z: 6.7418985}
+  m_Center: {x: -0.0047380924, y: 5.1751547, z: 0.3711486}
 --- !u!208 &4686200587987060812
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -104,9 +105,26 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2.44, y: 5.8090005, z: 3.0440001}
+  m_Extents: {x: 2.85758, y: 5.80892, z: 3.3709495}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: -0.07700001, y: 5.175, z: 0.698}
+  m_Center: {x: -0.004738092, y: 5.175155, z: 0.3711486}
   m_TimeToStationary: 0.5
+--- !u!114 &-426922253340563561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450122412707664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97789b9efadea6741bcaf12dd387b78c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 11400000, guid: dc1dff91dfbfc4f47bbd2d96f32d47f0, type: 2}
+  buildingLvl: 0
+  woodCost: 5
+  stoneCost: 0
+  goldCost: 0
