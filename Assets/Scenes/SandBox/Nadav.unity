@@ -2433,20 +2433,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 213330925}
     m_Modifications:
-    - target: {fileID: 4522675684627320515, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4523264525520351487, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
       propertyPath: m_Name
       value: Prehistoric_Male_Avatar_V1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523388014509163102, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
@@ -2502,11 +2492,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870301192114179399, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1d9b5215ccd62745b5d6f08feb2dbb5, type: 3}
