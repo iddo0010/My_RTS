@@ -7760,6 +7760,7 @@ MonoBehaviour:
     isMoving: 0
     isGatheringRoutine: 0
     isHarvesting: 0
+    isBuilding: 0
     bagSize: 3
     hp: 1
     dmg: 0.1
@@ -18273,6 +18274,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shovel
+      objectReference: {fileID: 0}
+    - target: {fileID: 381937323421271167, guid: 38bcfdf52cc9b4b459fea6eaafc4e550,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2874604844322283911, guid: 38bcfdf52cc9b4b459fea6eaafc4e550,
         type: 3}
