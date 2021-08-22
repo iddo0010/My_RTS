@@ -225,6 +225,8 @@ public class UnitEngine : MonoBehaviour
             case 11://Building Layer
                 if (target.tag == "StockPile")
                     targetToFind = target.transform.Find("UnloadSpot").gameObject;
+                if (target.tag == "Workshop")
+                    targetToFind = target.gameObject;
                 break;
         }     
     }
@@ -242,6 +244,7 @@ public class UnitEngine : MonoBehaviour
             {
                 agent.ResetPath();
                 targetToFind = null;
+                print(c.gameObject.name);
                 switch (target.layer)
                 {
                     case 9: //Resource Layer
@@ -258,6 +261,9 @@ public class UnitEngine : MonoBehaviour
                             case "Construction":
                                 if (mainWeapon.canBuild)
                                     target.GetComponent<ConstructBuilding>().StartBuildProcess(this);
+                                break;
+                            case "Workshop":
+                                target.GetComponent<ToolsProduction>().ChooseTool(this);
                                 break;
                         }
                         break;
@@ -307,6 +313,13 @@ public class UnitEngine : MonoBehaviour
                 }
             }
         }
+        if(unit.isInWorkshop)
+        {
+            unit.isInWorkshop = false;
+            UnitGUI.instance.OpenActionsPanel(0);
+            UnitGUI.instance.UpdateSelectedUnit(gameObject);
+        }
+        
     }
 
     private void OnDrawGizmos()
