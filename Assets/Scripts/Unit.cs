@@ -7,6 +7,7 @@ public class Unit
 {
     public bool isSelected;
     public bool isMoving;
+    public bool isInWorkshop;
     public bool isGatheringRoutine;
     public bool isHarvesting;
     public bool isBuilding;
@@ -18,6 +19,7 @@ public class Unit
     {
         isSelected = false;
         isMoving = false;
+        isInWorkshop = false;
         isGatheringRoutine = false;
         dmg = 0.1f;
         hp = 1f;

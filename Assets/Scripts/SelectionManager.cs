@@ -88,13 +88,19 @@ public class SelectionManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 DeSelect();
-                switch (hit.collider.tag)
+                switch (hit.collider.gameObject.layer)
                 {
-                    case "FriendlyUnit":
+                    case 8: //FriendlyUnit
                         hit.collider.GetComponent<UnitEngine>().SelectUnit();
                         selectedUnits.Add(hit.collider.gameObject);
                         UnitGUI.instance.UpdateSelectedUnit(selectedUnits);
                         break;
+                    case 11: //Building
+                        hit.collider.GetComponent<BuildingEngine>().SelectUnit();
+                        selectedUnits.Add(hit.collider.gameObject);
+                        UnitGUI.instance.UpdateSelectedUnit(hit.collider.gameObject);
+                        break;
+
                 }
             }
         }
@@ -164,10 +170,19 @@ public class SelectionManager : MonoBehaviour
     {
         if (selectedUnits.Count > 0)
         {
-            foreach (GameObject unit in selectedUnits)
+            if(selectedUnits[0].GetComponent<UnitEngine>())
             {
-                unit.GetComponent<UnitEngine>().DeSelectUnit();
+                foreach (GameObject unit in selectedUnits)
+                {
+                    unit.GetComponent<UnitEngine>().DeSelectUnit();                    
+                }
             }
+            else if(selectedUnits[0].GetComponent<BuildingEngine>())
+                foreach (GameObject unit in selectedUnits)
+                {
+                    unit.GetComponent<BuildingEngine>().DeSelectUnit();
+                }
+           
             selectedUnits.Clear();
             UnitGUI.instance.UpdateSelectedUnit();
         }

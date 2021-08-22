@@ -11,6 +11,8 @@ TagManager:
   - Ground
   - TargetCommand
   - Construction
+  - Building
+  - Workshop
   layers:
   - Default
   - TransparentFX
