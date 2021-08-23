@@ -107,7 +107,7 @@ public class UnitEngine : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(1))
             {
-                MoveUnit();
+                MoveUnit(Input.mousePosition);
             }
         }
         if (Input.GetKey(KeyCode.Space))
@@ -116,33 +116,31 @@ public class UnitEngine : MonoBehaviour
     /// <summary>
     /// Move Unit Towards Clicked location, if clicked on game object act accordingly
     /// </summary>
-    public void MoveUnit()
+    public void MoveUnit(Vector3 mousePos)
     {
-        if (!SelectionManager.instance.IsMouseOverUI())
+        CancelCurrentAction();
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
         {
-            CancelCurrentAction();
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            switch (hit.transform.gameObject.layer)
             {
-                switch (hit.transform.gameObject.layer)
-                {
-                    case 9: //Resource Layer
-                        Instantiate(resourceCommand, hit.transform.position, resourceCommand.transform.rotation);
-                        GoToTarget(hit.transform.gameObject);
-                        break;
-                    case 10://Ground Layer
-                        Instantiate(moveCommand, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), resourceCommand.transform.rotation);
-                        agent.SetDestination(hit.point);
-                        break;
-                    case 11://Building Layer
-                        print(hit.transform.name);
-                        GoToTarget(hit.transform.gameObject);
-                        break;
-                }
-
+                case 9: //Resource Layer
+                    Instantiate(resourceCommand, hit.transform.position, resourceCommand.transform.rotation);
+                    GoToTarget(hit.transform.gameObject);
+                    break;
+                case 10://Ground Layer
+                    Instantiate(moveCommand, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), resourceCommand.transform.rotation);
+                    agent.SetDestination(hit.point);
+                    break;
+                case 11://Building Layer
+                    print(hit.transform.name);
+                    GoToTarget(hit.transform.gameObject);
+                    break;
             }
+
         }
+
     }
 
     /// <summary>

@@ -43,16 +43,30 @@ public class SelectionManager : MonoBehaviour
         }
         else
         {
-            if(Input.GetMouseButtonDown(0))
+            if (!IsMouseOverUI())
             {
-                foreach (GameObject unit in selectedUnits)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    unit.GetComponent<UnitEngine>().MoveUnit();
+                    UnitCreation camp;
+                    if (selectedBuilding != null && selectedBuilding.TryGetComponent<UnitCreation>(out camp)) // if there is a building selected, and he has a unitcreation scirpt(Camp)
+                    {
+                        camp.ChangeSpawnPoint(Input.mousePosition);
+                    }
+                    else//else, move units
+                    {
+
+                        foreach (GameObject unit in selectedUnits)
+                        {
+                            unit.GetComponent<UnitEngine>().MoveUnit(Input.mousePosition);
+                        }
+
+                    }
+
                 }
-            }
-            if(Input.GetMouseButtonDown(1))
-            {
-                isSetTargetMode = false;
+                if (Input.GetMouseButtonUp(0))
+                {
+                    isSetTargetMode = false;
+                }
             }
         }
         if (Input.GetKey(KeyCode.Escape))

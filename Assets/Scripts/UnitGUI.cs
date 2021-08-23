@@ -18,7 +18,7 @@ public class UnitGUI : MonoBehaviour
     Transform itemList;
     [SerializeField] Transform unitCommands;
     [SerializeField] Transform buildingOptions;
-    [SerializeField] Transform buildingActions;
+    [SerializeField] Transform buildingActions; // No Use (Delete)
     Transform SelectionTool;
 
     public bool isBluePrintEnabled;

@@ -13,6 +13,7 @@ TagManager:
   - Construction
   - Building
   - Workshop
+  - Camp
   layers:
   - Default
   - TransparentFX
