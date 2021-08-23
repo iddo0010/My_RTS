@@ -42,10 +42,6 @@ public class ActionsListenLogic : MonoBehaviour
             buildOptions.transform.GetChild(index).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { canvas.ActivateBluePrint(building); });
         }
         buildOptions.transform.GetChild(14).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { canvas.OpenActionsPanel(0); });
-        //tent = AssetDatabase.LoadAssetAtPath<BuildingSettings>("Assets/Prefabs/Buildings/ScriptableObj/Tent.asset");
-        //workshop = AssetDatabase.LoadAssetAtPath<BuildingSettings>("Assets/Prefabs/Buildings/ScriptableObj/Workshop.asset");
-        //buildOptions.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { canvas.ActivateBluePrint(tent); });
-        //buildOptions.transform.GetChild(1).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { canvas.ActivateBluePrint(workshop); });
     }
 
     private void SetUnitCommands()

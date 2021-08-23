@@ -16,6 +16,8 @@ public class SelectionManager : MonoBehaviour
     public List<GameObject> unitList; // All Friendly Units in Game
     public List<GameObject> selectedUnits = new List<GameObject>(); //Units Selected
 
+    public GameObject selectedBuilding;
+
     public bool isSetTargetMode;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,7 @@ public class SelectionManager : MonoBehaviour
         GameObject[] temp = GameObject.FindGameObjectsWithTag("FriendlyUnit");
         unitList = temp.ToList<GameObject>();
         isSetTargetMode = false;
+        selectedBuilding = null;
     }
 
     // Update is called once per frame
@@ -96,9 +99,9 @@ public class SelectionManager : MonoBehaviour
                         UnitGUI.instance.UpdateSelectedUnit(selectedUnits);
                         break;
                     case 11: //Building
-                        hit.collider.GetComponent<BuildingEngine>().SelectUnit();
-                        selectedUnits.Add(hit.collider.gameObject);
-                        UnitGUI.instance.UpdateSelectedUnit(hit.collider.gameObject);
+                        BuildingEngine currentBuilding;
+                        if (hit.collider.TryGetComponent<BuildingEngine>(out currentBuilding))
+                            currentBuilding.SelectBuilding();
                         break;
 
                 }
@@ -170,23 +173,17 @@ public class SelectionManager : MonoBehaviour
     {
         if (selectedUnits.Count > 0)
         {
-            if(selectedUnits[0].GetComponent<UnitEngine>())
+            foreach (GameObject unit in selectedUnits)
             {
-                foreach (GameObject unit in selectedUnits)
-                {
-                    unit.GetComponent<UnitEngine>().DeSelectUnit();                    
-                }
+                unit.GetComponent<UnitEngine>().DeSelectUnit();
             }
-            else if(selectedUnits[0].GetComponent<BuildingEngine>())
-                foreach (GameObject unit in selectedUnits)
-                {
-                    unit.GetComponent<BuildingEngine>().DeSelectUnit();
-                }
-           
             selectedUnits.Clear();
-            UnitGUI.instance.UpdateSelectedUnit();
         }
-
+        else if (selectedBuilding != null)
+        {
+            selectedBuilding.GetComponent<BuildingEngine>().DeSelectBuilding();
+        }
+        UnitGUI.instance.DeSelectUI();
     }
 
 }

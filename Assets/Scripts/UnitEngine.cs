@@ -23,7 +23,6 @@ public class UnitEngine : MonoBehaviour
 
     public GameObject resourceBeingGathered;
     ResourceType lastResource;
-    //GameObject stockTarget;
 
     [SerializeField] float searchRadius;
     [SerializeField] LayerMask resourceLayer;
@@ -31,7 +30,7 @@ public class UnitEngine : MonoBehaviour
     public Weapon mainWeapon;
     public Weapon offWeapon;
 
-    GameObject targetToFind;
+    public GameObject targetToFind;
     // Start is called before the first frame update
     void Awake()
     {
@@ -45,7 +44,6 @@ public class UnitEngine : MonoBehaviour
         anm = GetComponent<Animator>();
         unitSelectionCircle.SetActive(false);
         resourceBeingGathered = null;
-        //stockTarget = null;
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject temp = transform.GetChild(i).gameObject;
@@ -210,7 +208,6 @@ public class UnitEngine : MonoBehaviour
     /// <param name="target">target</param>
     public void GoToTarget(GameObject target)
     {
-        agent.SetDestination(target.transform.position);
         targetToFind = target;
         switch (target.layer)
         {
@@ -225,10 +222,9 @@ public class UnitEngine : MonoBehaviour
             case 11://Building Layer
                 if (target.tag == "StockPile")
                     targetToFind = target.transform.Find("UnloadSpot").gameObject;
-                if (target.tag == "Workshop")
-                    targetToFind = target.gameObject;
                 break;
-        }     
+        }
+        agent.SetDestination(targetToFind.transform.position);
     }
 
     /// <summary>
@@ -268,7 +264,7 @@ public class UnitEngine : MonoBehaviour
                         }
                         break;
                 }
-
+                break;
 
             }
         }
@@ -316,7 +312,6 @@ public class UnitEngine : MonoBehaviour
         if(unit.isInWorkshop)
         {
             unit.isInWorkshop = false;
-            UnitGUI.instance.OpenActionsPanel(0);
             UnitGUI.instance.UpdateSelectedUnit(gameObject);
         }
         

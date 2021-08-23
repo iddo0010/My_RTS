@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BuildingEngine : MonoBehaviour
 {
-    bool isSelected;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,15 +16,24 @@ public class BuildingEngine : MonoBehaviour
 
     }
 
-    public void SelectUnit()
+    public void SelectBuilding()
     {
-        isSelected = true;
-        //unitSelectionCircle.SetActive(true);
+        SelectionManager.instance.selectedBuilding = gameObject;
+        BuildingActionsUI();
     }
-    public void DeSelectUnit()
+    public void DeSelectBuilding()
     {
-        isSelected = false;
-        //unitSelectionCircle.SetActive(false);
+        SelectionManager.instance.selectedBuilding = null;
     }
+    public void BuildingActionsUI()
+    {
+        switch(gameObject.tag)
+        {
+            case "Workshop":
+                UnitGUI.instance.OpenActionsPanel(2);
+                break;
+        }
+    }
+
 
 }

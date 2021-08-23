@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2597948738331744862}
+  - component: {fileID: 3613806705715126098}
   m_Layer: 11
   m_Name: UnloadSpot
   m_TagString: StockPile
@@ -30,6 +31,20 @@ Transform:
   m_Father: {fileID: 2602086783728515584}
   m_RootOrder: 125
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &3613806705715126098
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2597948738331744861}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2598135381715648732
 GameObject:
   m_ObjectHideFlags: 0

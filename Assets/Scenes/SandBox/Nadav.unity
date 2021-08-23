@@ -36132,6 +36132,7 @@ MonoBehaviour:
   selectionBox: {fileID: 77103479}
   unitList: []
   selectedUnits: []
+  selectedBuilding: {fileID: 0}
   isSetTargetMode: 0
 --- !u!20 &835194122
 Camera:
@@ -92436,7 +92437,7 @@ PrefabInstance:
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.44255066
+      value: -9.959998
       objectReference: {fileID: 0}
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
@@ -92446,7 +92447,7 @@ PrefabInstance:
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.7440643
+      value: 3.069992
       objectReference: {fileID: 0}
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
@@ -92481,6 +92482,11 @@ PrefabInstance:
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870301192114179399, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -94421,7 +94427,7 @@ PrefabInstance:
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.58
+      value: -8.59
       objectReference: {fileID: 0}
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
@@ -94431,7 +94437,7 @@ PrefabInstance:
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.24
+      value: 4.81
       objectReference: {fileID: 0}
     - target: {fileID: 4527070578742178983, guid: e1d9b5215ccd62745b5d6f08feb2dbb5,
         type: 3}
@@ -94854,7 +94860,7 @@ PrefabInstance:
     - target: {fileID: 4363534452670199288, guid: d4d47d40029288742bbae654e87c8fc4,
         type: 3}
       propertyPath: m_Name
-      value: Item List
+      value: Action List
       objectReference: {fileID: 0}
     - target: {fileID: 4363534452670199291, guid: d4d47d40029288742bbae654e87c8fc4,
         type: 3}
@@ -95231,11 +95237,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9111730862807873777, guid: d4d47d40029288742bbae654e87c8fc4,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2092066710}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4d47d40029288742bbae654e87c8fc4, type: 3}
 --- !u!224 &6854653359530555876 stripped

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class ToolsProduction : MonoBehaviour
 {
 
-    
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 
     }
@@ -23,7 +23,7 @@ public class ToolsProduction : MonoBehaviour
     public void CreateTool(string toolName)
     {
         GameObject tool = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Weapons/" + toolName + ".prefab");
-        Transform rack = SelectionManager.instance.selectedUnits[0].transform.GetChild(1);
+        Transform rack = SelectionManager.instance.selectedBuilding.transform.Find("Rack");
         foreach(Transform slot in rack)
         {
             if(slot.childCount == 0)

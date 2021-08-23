@@ -27,8 +27,8 @@ public class UnitGUI : MonoBehaviour
     {
         instance = this;
         isBluePrintEnabled = false;
-        SelectionTool = GameObject.Find("Item List").transform.GetChild(3);
-        itemList = GameObject.Find("Item List").transform;
+        SelectionTool = GameObject.Find("Action List").transform.GetChild(3);
+        itemList = GameObject.Find("Action List").transform;
         
     }
 
@@ -37,9 +37,9 @@ public class UnitGUI : MonoBehaviour
     {
         
     }
-    public void UpdateSelectedUnit()
+    public void DeSelectUI()
     {
-        if (singleUnitImage.activeInHierarchy)
+        if (singleUnitImage.activeInHierarchy) //Reset Single unit image
         {
             foreach (Transform child in singleUnitImage.transform)
             {
@@ -48,7 +48,7 @@ public class UnitGUI : MonoBehaviour
             }
             singleUnitImage.SetActive(false);
         }
-        if(multipleUnitContent.activeInHierarchy)
+        if(multipleUnitContent.activeInHierarchy) // Reset Mulitple Units Images
         {
             foreach(Transform child in multipleUnitContent.transform)
             {
@@ -56,9 +56,8 @@ public class UnitGUI : MonoBehaviour
             }
             multipleUnitContent.SetActive(false);
         }
-        //if (buildingOptions.gameObject.activeInHierarchy || buildingActions.gameObject.activeInHierarchy)
-            OpenActionsPanel(0);
-        foreach (Transform command in unitCommands)
+        OpenActionsPanel(0); // open the defalt panel
+        foreach (Transform command in unitCommands) // Reset all unit Commands
         {
             if(command.childCount > 0)
                 command.GetChild(0).gameObject.SetActive(false);
@@ -66,28 +65,20 @@ public class UnitGUI : MonoBehaviour
     }
     public void UpdateSelectedUnit(GameObject selectedUnit)
     {
-        if(selectedUnit.layer == 11) //Building Layer
+        singleUnitImage.SetActive(true);
+        UnitEngine engine = selectedUnit.GetComponent<UnitEngine>();
+        foreach (Transform child in singleUnitImage.transform)
         {
-            UpdateBuildingActions();
+            if (child.name.Contains(engine.mainWeapon.type.ToString()))
+                child.gameObject.SetActive(true);
         }
+
+        if (!engine.unit.isInWorkshop)
+            UpdateUnitActions(engine.mainWeapon.canBuild);
+
         else
         {
-            singleUnitImage.SetActive(true);
-            UnitEngine engine = selectedUnit.GetComponent<UnitEngine>();
-            foreach(Transform child in singleUnitImage.transform)
-            {
-                if (child.name.Contains(engine.mainWeapon.type.ToString()))
-                    child.gameObject.SetActive(true);
-            }
-
-            if(!engine.unit.isInWorkshop)
-                UpdateUnitActions(engine.mainWeapon.canBuild);
-            
-            else
-            {
-                OpenActionsPanel(3);
-            }
-            
+            OpenActionsPanel(3);
         }
     }
     public void UpdateSelectedUnit(List<GameObject> selectedUnits)
@@ -114,6 +105,7 @@ public class UnitGUI : MonoBehaviour
     }
     private void UpdateUnitActions(bool canBuild)
     {
+        OpenActionsPanel(0);
         int index = 1;
         foreach(Transform child in unitCommands)
         {
@@ -126,16 +118,6 @@ public class UnitGUI : MonoBehaviour
             else
                 child.GetChild(0).gameObject.SetActive(true);
             index++;
-        }
-    }
-
-    private void UpdateBuildingActions()
-    {
-        OpenActionsPanel(2);
-        foreach (Transform child in buildingActions)
-        {   
-            if(child.childCount != 0)
-                child.GetChild(0).gameObject.SetActive(true);
         }
     }
 
@@ -160,34 +142,7 @@ public class UnitGUI : MonoBehaviour
         }
             itemList.GetChild(i).gameObject.SetActive(true);           
     }
-    //public void CloseBuildingPanel()
-    //{
-    //    unitCommands.gameObject.SetActive(true);
-    //    buildingOptions.gameObject.SetActive(false);
-    //    buildingActions.gameObject.SetActive(false);
 
-    //}
-    //public void OpenBuildingActionsPanel()
-    //{
-    //    unitCommands.gameObject.SetActive(false);
-    //    buildingOptions.gameObject.SetActive(false);
-    //    buildingActions.gameObject.SetActive(true);
-    //}
-
-    //public void OpenBuildingPanel()
-    //{
-    //    unitCommands.gameObject.SetActive(false);
-    //    buildingOptions.gameObject.SetActive(true);
-    //    buildingActions.gameObject.SetActive(false);
-    //}
-
-    //public void OpenToolsSelection()
-    //{
-    //    unitCommands.gameObject.SetActive(false);
-    //    buildingOptions.gameObject.SetActive(false);
-    //    buildingActions.gameObject.SetActive(false);
-    //    SelectionTool.gameObject.SetActive(true);
-    //}
     public void ActivateBluePrint(BuildingSettings building)
     {
         if (!isBluePrintEnabled && ResourceManager.instance.CanBuild(building.woodCost, building.stoneCost, building.goldCost))

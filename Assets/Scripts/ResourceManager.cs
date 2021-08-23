@@ -198,4 +198,19 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+    public void AddStockPileToList(GameObject newStockPile)
+    {
+        switch(newStockPile.GetComponent<StockEngine>().type)
+        {
+            case ResourceType.Stone:
+                stoneStocks.Add(newStockPile);
+                maxStone = stoneStocks.Count * 125;
+                break;
+            case ResourceType.Tree:
+                treeStocks.Add(newStockPile);
+                maxTree = treeStocks.Count * 128;
+                break;
+        }
+        UpdateUI();
+    }
 }
