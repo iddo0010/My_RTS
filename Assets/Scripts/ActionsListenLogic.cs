@@ -6,17 +6,17 @@ using UnityEditor;
 
 public class ActionsListenLogic : MonoBehaviour
 {
-    GameObject unitCommands, buildOptions, buildingActions;
+    GameObject unitCommands, buildOptions, buildingActions, toolsSelection;
     UnitGUI canvas;
     ToolsProduction workshopScript;
     [SerializeField] BuildingSettings[] buildings;
     string[] tools = { "HarvestingAxe", "WarAxe", "Hammer", "Club", "MiningHoe", "Spear", "Shield" };
     void Start()
     {
-
         unitCommands = transform.GetChild(0).gameObject;
         buildOptions = transform.GetChild(1).gameObject;
         buildingActions = transform.GetChild(2).gameObject;
+        toolsSelection = transform.GetChild(3).gameObject;
         canvas = FindObjectOfType<UnitGUI>();
         workshopScript = FindObjectOfType<ToolsProduction>();
         SetUnitCommands();
@@ -51,6 +51,32 @@ public class ActionsListenLogic : MonoBehaviour
         unitCommands.transform.GetChild(2).GetChild(0).GetComponent<Button>().onClick.AddListener(canvas.CancelUnitAction);
         unitCommands.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(FindObjectOfType<CameraMovement>().FollowUnit);
         unitCommands.transform.GetChild(4).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { canvas.OpenActionsPanel(1); }) ;
+    }
+
+    public void SetToolsSelection(GameObject workshop)
+    {
+       List<GameObject> tools = workshop.GetComponent<ToolsProduction>().GetTools();
+
+        for (int i = 0; i < tools.Count; i++)
+        {
+            string tool = tools[i].name;
+            //toolsSelection.transform.GetChild(i).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { workshopScript.CreateTool(weaponName); });
+            print(tool);
+            tool = tool.Replace("(Clone)", "_Icon");
+            print(tool);
+
+            toolsSelection.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Images/" + tool+".png");
+            if(toolsSelection.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite.name == "None")
+            {
+                toolsSelection.transform.GetChild(i).GetChild(0).gameObject.SetActive(false);
+            }
+        }
+
+        //foreach(GameObject t in workshop.GetComponent<ToolsProduction>().GetTools())
+        //{
+        //    toolsSelection.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick
+        //    print(t);
+        //}
     }
 
     // Update is called once per frame
