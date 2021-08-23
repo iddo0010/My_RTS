@@ -88,4 +88,13 @@ public class ConstructBuilding : MonoBehaviour
                 break;
         }
     }
+
+    public void SetConstructionSettings(BuildingSettings building, GameObject prefab)
+    {
+        this.building = building;
+        this.prefab = prefab;
+        BoxCollider collider = GetComponentInChildren<BoxCollider>();
+        collider.center = prefab.GetComponent<BoxCollider>().center;
+        collider.size = prefab.GetComponent<BoxCollider>().size;
+    }
 }

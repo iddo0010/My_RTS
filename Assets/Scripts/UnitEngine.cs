@@ -136,6 +136,7 @@ public class UnitEngine : MonoBehaviour
                         agent.SetDestination(hit.point);
                         break;
                     case 11://Building Layer
+                        print(hit.transform.name);
                         GoToTarget(hit.transform.gameObject);
                         break;
                 }
@@ -220,8 +221,16 @@ public class UnitEngine : MonoBehaviour
                 }
                 break;
             case 11://Building Layer
-                if (target.tag == "StockPile")
-                    targetToFind = target.transform.Find("UnloadSpot").gameObject;
+                switch(target.tag)
+                {
+                    case "StockPile":
+                        targetToFind = target.transform.Find("UnloadSpot").gameObject;
+                        break;
+                    case "Construction":
+                        if(target.transform.Find("BuildingPoint") != null) //Checks if the construction is a new building or a upgrade
+                            targetToFind = target.transform.Find("BuildingPoint").gameObject;
+                        break;
+                }
                 break;
         }
         agent.SetDestination(targetToFind.transform.position);
@@ -256,7 +265,13 @@ public class UnitEngine : MonoBehaviour
                                 break;
                             case "Construction":
                                 if (mainWeapon.canBuild)
-                                    target.GetComponent<ConstructBuilding>().StartBuildProcess(this);
+                                {
+                                    ConstructBuilding construct;
+                                    if (target.TryGetComponent<ConstructBuilding>(out construct)) // if the construct is an upgrade
+                                        construct.StartBuildProcess(this);
+                                    else
+                                        target.GetComponentInParent<ConstructBuilding>().StartBuildProcess(this);
+                                }
                                 break;
                             case "Workshop":
                                 target.GetComponent<ToolsProduction>().ChooseTool(this);
@@ -289,6 +304,7 @@ public class UnitEngine : MonoBehaviour
     /// </summary>
     public void CancelCurrentAction()
     {
+        targetToFind = null;
         agent.ResetPath();
         if (unit.isGatheringRoutine) // Disable Gathering if unit has been moved during Process
         {
@@ -302,11 +318,15 @@ public class UnitEngine : MonoBehaviour
             Collider[] collidersInRange = Physics.OverlapSphere(transform.position, searchRadius);
             foreach (Collider c in collidersInRange)
             {
-                ConstructBuilding building;
-                if (c.gameObject.TryGetComponent<ConstructBuilding>(out building))
+                if (c.isTrigger) // only stop building from the buildingpoint collider(Sphere).
                 {
-                    building.StopBuilding(this);
+                    ConstructBuilding building;
+                    if (c.gameObject.transform.parent.TryGetComponent<ConstructBuilding>(out building))
+                    {
+                        building.StopBuilding(this);
+                    }
                 }
+
             }
         }
         if(unit.isInWorkshop)

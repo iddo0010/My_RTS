@@ -57,11 +57,10 @@ public class Blueprint : MonoBehaviour
                 UnitGUI.instance.isBluePrintEnabled = false;
                 ResourceManager.instance.ReduceAmount(building.woodCost, building.stoneCost, building.goldCost, transform.position);
                 Transform newBuilding = Instantiate(building.construction, transform.position, transform.rotation);
-                newBuilding.GetComponent<ConstructBuilding>().building = this.building;
                 int index = 0;
                 if (building.prefab.Length > 1)
                     index = Random.Range(0, building.prefab.Length - 1);
-                newBuilding.GetComponent<ConstructBuilding>().prefab = building.prefab[index].gameObject;
+                newBuilding.GetComponent<ConstructBuilding>().SetConstructionSettings(building, building.prefab[index].gameObject);
                 foreach (GameObject unit in selectedBuildersList)//Send all builders to the new building 
                 {
                     unit.GetComponent<UnitEngine>().GoToTarget(newBuilding.gameObject);
