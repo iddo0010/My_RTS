@@ -6,10 +6,32 @@ public class StockEngine : MonoBehaviour
 {
     public ResourceType type;
 
+    [SerializeField] int maxCapacity;
+    int currentQuantity;
     // Start is called before the first frame update
     void Awake()
     {
-        //Add new StockEngine To the stocks list in resource manager
+        currentQuantity = 0;
+        switch (type)
+        {
+            case ResourceType.Tree:
+                ResourceManager.instance.treeStocks.Add(gameObject);
+                break;
+            case ResourceType.Stone:
+                ResourceManager.instance.stoneStocks.Add(gameObject);
+                break;
+        }
+        ResourceManager.instance.UpdateUI();
+
+        int lastResourceActive = -1;
+        foreach (Transform child in transform) //Finds the index of the last resource spot active
+        {
+            if (!child.gameObject.activeInHierarchy)
+                break;
+            lastResourceActive++;
+        }
+        currentQuantity = lastResourceActive + 1;
+
     }
     /// <summary>
     /// Visually Adds x  amount of Resources to the Stock Pile 
@@ -17,6 +39,7 @@ public class StockEngine : MonoBehaviour
     /// <param name="amount">amount of resources</param>
     public void AddResource(int amount)
     {
+        currentQuantity += amount;
         foreach (Transform child in transform) //enable resource spots acording to amount given
         {
             if (amount > 0)
@@ -38,13 +61,7 @@ public class StockEngine : MonoBehaviour
     /// <returns>leftover amount of resource to remove, 0 if none</returns>
     public int ReduceResource(int amount)
     {
-        int lastResourceActive = -1;//index of the last resource spot active
-        foreach (Transform child in transform) //Finds the index of the last resource spot active
-        {
-            if (!child.gameObject.activeInHierarchy)
-                break;
-            lastResourceActive++;
-        }
+        int lastResourceActive = currentQuantity - 1;//index of the last resource spot active
         while(amount > 0)
         {
             if (lastResourceActive < 0) //return leftover amount 
@@ -52,9 +69,15 @@ public class StockEngine : MonoBehaviour
                 return amount;
             }
             transform.GetChild(lastResourceActive).gameObject.SetActive(false);
+            currentQuantity--;
             lastResourceActive--;
             amount--;
         }
         return 0; //no leftover
+    }
+
+    public int StockSpaceAvailavle()
+    {
+        return maxCapacity - currentQuantity;
     }
 }

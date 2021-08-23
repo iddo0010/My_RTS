@@ -23,7 +23,7 @@ public class ConstructBuilding : MonoBehaviour
         if(constructionAmount <= 0)
         {
             GameObject finishedBuilding = Instantiate(prefab, transform.position, transform.rotation);
-            AddToList(finishedBuilding);
+            //AddToList(finishedBuilding);
             StopAllCoroutines();
             foreach (KeyValuePair<Collider, Coroutine> pair in colliders) ///Disables all units currently building
             {
@@ -75,19 +75,6 @@ public class ConstructBuilding : MonoBehaviour
         colliders.Remove(unitEngine.GetComponent<CapsuleCollider>());//removes unit from the dictionary
     }
     
-    private void AddToList(GameObject finishedBuilding)
-    {
-        switch(prefab.tag)
-        {
-            case "Tent":
-                break;
-            case "BigTent":
-                break;
-            case "StockPile":
-                ResourceManager.instance.AddStockPileToList(finishedBuilding);
-                break;
-        }
-    }
 
     public void SetConstructionSettings(BuildingSettings building, GameObject prefab)
     {

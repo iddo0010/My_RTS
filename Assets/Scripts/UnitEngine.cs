@@ -168,9 +168,17 @@ public class UnitEngine : MonoBehaviour
     /// <param name="type">type of the recource</param>
     public void SendToStockPile(ResourceType type)
     {
-        GameObject stockTarget = ResourceManager.instance.FindNearesStockPile(transform.position, type)[0];
-        if (stockTarget != null)
-            GoToTarget(stockTarget);
+        List <GameObject> stockTargets = ResourceManager.instance.FindNearesStockPile(transform.position, type);
+        GameObject target = stockTargets[0];
+        foreach(GameObject stock in stockTargets)
+        {
+            if (stock.GetComponent<StockEngine>().StockSpaceAvailavle() > 0)
+            {
+                target = stock;
+                break;
+            }
+        }
+        GoToTarget(target);
     }
     /// <summary>
     /// Send Unit to Harvset the corrent resource, if there is none, finds the nearest target by Resource Type
@@ -260,8 +268,12 @@ public class UnitEngine : MonoBehaviour
                         {
                             case "StockPile":
                                 GameObject stockPile = target.transform.parent.gameObject;
-                                ResourceManager.instance.Unload(unit, stockPile.GetComponent<StockEngine>().type, stockPile);
-                                SendToHarvest(stockPile.GetComponent<StockEngine>().type);
+                                ResourceType stockType = stockPile.GetComponent<StockEngine>().type;
+                                ResourceManager.instance.Unload(unit, stockPile.GetComponent<StockEngine>());
+                                if (unit.resourceCarry[stockType] == 3)
+                                    SendToStockPile(stockType);
+                                else
+                                    SendToHarvest(stockType);
                                 break;
                             case "Construction":
                                 if (mainWeapon.canBuild)

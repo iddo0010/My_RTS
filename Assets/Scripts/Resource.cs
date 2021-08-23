@@ -56,12 +56,18 @@ public class Resource : MonoBehaviour
             switch (type)
             {
                 case ResourceType.Tree:
-                    routine = StartCoroutine(HarvestWood(unitEngine));
-                    colliders.Add(unitEngine.GetComponent<CapsuleCollider>(), routine);
+                    if (unitEngine.mainWeapon.type == weaponType.HarvestingAxe)
+                    {
+                        routine = StartCoroutine(HarvestWood(unitEngine));
+                        colliders.Add(unitEngine.GetComponent<CapsuleCollider>(), routine);
+                    }
                     break;
                 case ResourceType.Stone:
-                    routine = StartCoroutine(HarvestStone(unitEngine));
-                    colliders.Add(unitEngine.GetComponent<CapsuleCollider>(), routine);
+                    if (unitEngine.mainWeapon.type == weaponType.MiningHoe)
+                    {
+                        routine = StartCoroutine(HarvestStone(unitEngine));
+                        colliders.Add(unitEngine.GetComponent<CapsuleCollider>(), routine);
+                    }
                     break;
             }
         }
@@ -75,23 +81,21 @@ public class Resource : MonoBehaviour
     /// <returns></returns>
     public IEnumerator HarvestWood(UnitEngine unitEngine)
     {
-        if (unitEngine.mainWeapon.type == weaponType.HarvestingAxe)
+        unitEngine.unit.isHarvesting = true;
+        unitEngine.SetAnimation("isHarvesting", true);
+        for (int i = 0; i <= (delay * 5); i++)
         {
-            unitEngine.unit.isHarvesting = true;
-            unitEngine.SetAnimation("isHarvesting" , true);
-            for (int i = 0; i <= (delay * 5); i++)
+            yield return new WaitForSeconds(delay);
+            Debug.Log("Tick");
+            quantity--;
+            unitEngine.unit.resourceCarry[type]++;
+            if (unitEngine.unit.IsBagFull()) // if the units bag is full, break
             {
-                yield return new WaitForSeconds(delay);
-                Debug.Log("Tick");
-                quantity--;
-                unitEngine.unit.resourceCarry[type]++;
-                if (unitEngine.unit.IsBagFull()) // if the units bag is full, break
-                {
-                    StopGathering(unitEngine);
-                    unitEngine.SendToStockPile(type);
-                }
+                StopGathering(unitEngine);
+                unitEngine.SendToStockPile(type);
             }
         }
+
     }
     /// <summary>
     /// Collects Stone by Ticks, sends back to stockpile if unit bag is full
@@ -99,22 +103,19 @@ public class Resource : MonoBehaviour
     /// <param name="unitEngine">Unit Harvesting</param>
     public IEnumerator HarvestStone(UnitEngine unitEngine)
     {
-        if (unitEngine.mainWeapon.type == weaponType.MiningHoe)
+        unitEngine.DeSelectUnit();
+        unitEngine.unit.isHarvesting = true;
+        unitEngine.ActivateUnit(false);
+        for (int i = 0; i <= (delay * 5); i++)
         {
-            unitEngine.DeSelectUnit();
-            unitEngine.unit.isHarvesting = true;
-            unitEngine.ActivateUnit(false);
-            for (int i = 0; i <= (delay * 5); i++)
+            yield return new WaitForSeconds(delay);
+            Debug.Log("Tick");
+            quantity--;
+            unitEngine.unit.resourceCarry[type]++;
+            if (unitEngine.unit.IsBagFull())// if the units bag is full, break
             {
-                yield return new WaitForSeconds(delay);
-                Debug.Log("Tick");
-                quantity--;
-                unitEngine.unit.resourceCarry[type]++;
-                if (unitEngine.unit.IsBagFull())// if the units bag is full, break
-                {
-                    StopGathering(unitEngine);
-                    unitEngine.SendToStockPile(type);
-                }
+                StopGathering(unitEngine);
+                unitEngine.SendToStockPile(type);
             }
         }
     }

@@ -26,14 +26,11 @@ public class ResourceManager : MonoBehaviour
     public int maxStone;
     public int maxFood;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         instance = this;
-        maxTree = treeStocks.Count * 128;
-        maxStone = stoneStocks.Count * 125;
-        maxFood = 0;
-        resources.Add(ResourceType.Tree, 30);
-        resources.Add(ResourceType.Stone, 30);
+        resources.Add(ResourceType.Tree, 126);
+        resources.Add(ResourceType.Stone, 0);
         resources.Add(ResourceType.Food, 0);
         resources.Add(ResourceType.Gold, 0);
         UpdateUI();
@@ -45,30 +42,17 @@ public class ResourceManager : MonoBehaviour
     /// <param name="unit">unit to unload from</param>
     /// <param name="type">type of the resource</param>
     /// <param name="stockPile">stockPile to unload to</param>
-    public void Unload(Unit unit, ResourceType type, GameObject stockPile)
+    public void Unload(Unit unit, StockEngine stockPile)
     {
         int amountToUnload = 0;
-        int stockToUnload = 0;
-        switch (type)
-        {
-            case ResourceType.Tree:
-                stockToUnload = maxTree;
-                break;
-            case ResourceType.Stone:
-                stockToUnload = maxStone;
-                break;
-            case ResourceType.Food:
-                stockToUnload = maxFood;
-                break;
-        }
-        int stockSpaceAvailable = stockToUnload - resources[type];
-        if (unit.resourceCarry[type] > stockSpaceAvailable)
+        int stockSpaceAvailable = stockPile.StockSpaceAvailavle();
+        if (unit.resourceCarry[stockPile.type] > stockSpaceAvailable)
             amountToUnload = stockSpaceAvailable;
         else
-            amountToUnload = unit.resourceCarry[type];
-        resources[type] += amountToUnload;
-        unit.resourceCarry[type] -= amountToUnload;
-        stockPile.GetComponent<StockEngine>().AddResource(amountToUnload);
+            amountToUnload = unit.resourceCarry[stockPile.type];
+        resources[stockPile.type] += amountToUnload;
+        unit.resourceCarry[stockPile.type] -= amountToUnload;
+        stockPile.AddResource(amountToUnload);
         UpdateUI();
     }
     /// <summary>
@@ -76,6 +60,9 @@ public class ResourceManager : MonoBehaviour
     /// </summary>
     public void UpdateUI()
     {
+        maxTree = treeStocks.Count * 128;
+        maxStone = stoneStocks.Count * 125;
+        //maxFood = 0;
         woodText.text = resources[ResourceType.Tree] + " / " + maxTree.ToString();
         stoneText.text = resources[ResourceType.Stone] + " / " + maxStone.ToString();
         //foodText.text = resources[ResourceType.food] + " / " + foodStock.ToString();
@@ -198,19 +185,4 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    public void AddStockPileToList(GameObject newStockPile)
-    {
-        switch(newStockPile.GetComponent<StockEngine>().type)
-        {
-            case ResourceType.Stone:
-                stoneStocks.Add(newStockPile);
-                maxStone = stoneStocks.Count * 125;
-                break;
-            case ResourceType.Tree:
-                treeStocks.Add(newStockPile);
-                maxTree = treeStocks.Count * 128;
-                break;
-        }
-        UpdateUI();
-    }
 }
