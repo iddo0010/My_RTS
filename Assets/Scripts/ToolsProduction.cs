@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class ToolsProduction : MonoBehaviour
 {
 
+    List<GameObject> tools = new List<GameObject>();
+
 
     // Start is called before the first frame update
     void Awake()
@@ -43,11 +45,27 @@ public class ToolsProduction : MonoBehaviour
         tool.transform.localScale = Vector3.one;
     }
 
-    public void ChooseTool(UnitEngine unit)
+    public void ChooseTool(UnitEngine unit, GameObject workshop)
     {
         unit.transform.position = transform.GetChild(1).position + (Vector3.forward * 1.5f);
         unit.transform.LookAt(transform.GetChild(1));
         unit.unit.isInWorkshop = true;
+        FindObjectOfType<ActionsListenLogic>().SetToolsSelection(workshop);
         UnitGUI.instance.UpdateSelectedUnit(unit.gameObject);
+    }
+
+    public List<GameObject> GetTools()
+    {
+        tools.Clear();
+        for (int i = 0; i < 4; i++)
+        {
+            if(transform.GetChild(1).GetChild(i).childCount != 0)
+            {
+                //tools[i] = transform.GetChild(1).GetChild(i).GetChild(0).gameObject;
+                tools.Add(transform.GetChild(1).GetChild(i).GetChild(0).gameObject);
+            }       
+        }
+ 
+        return tools;
     }
 }

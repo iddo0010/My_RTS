@@ -255,7 +255,7 @@ public class UnitEngine : MonoBehaviour
             {
                 agent.ResetPath();
                 targetToFind = null;
-                print(c.gameObject.name);
+                
                 switch (target.layer)
                 {
                     case 9: //Resource Layer
@@ -284,7 +284,7 @@ public class UnitEngine : MonoBehaviour
                                 }
                                 break;
                             case "Workshop":
-                                target.GetComponent<ToolsProduction>().ChooseTool(this);
+                                target.GetComponent<ToolsProduction>().ChooseTool(this, target);
                                 break;
                         }
                         break;
