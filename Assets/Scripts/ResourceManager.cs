@@ -30,7 +30,7 @@ public class ResourceManager : MonoBehaviour
     {
         instance = this;
         resources.Add(ResourceType.Tree, 126);
-        resources.Add(ResourceType.Stone, 0);
+        resources.Add(ResourceType.Stone, 100);
         resources.Add(ResourceType.Food, 0);
         resources.Add(ResourceType.Gold, 0);
         UpdateUI();
