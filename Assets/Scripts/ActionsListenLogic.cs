@@ -6,7 +6,7 @@ using UnityEditor;
 
 public class ActionsListenLogic : MonoBehaviour
 {
-    GameObject unitCommands, buildOptions, buildingActions, toolsSelection;
+    GameObject unitCommands, buildOptions, workshopActions, toolsSelection;
     UnitGUI canvas;
     ToolsProduction workshopScript;
     [SerializeField] BuildingSettings[] buildings;
@@ -15,7 +15,7 @@ public class ActionsListenLogic : MonoBehaviour
     {
         unitCommands = transform.GetChild(0).gameObject;
         buildOptions = transform.GetChild(1).gameObject;
-        buildingActions = transform.GetChild(2).gameObject;
+        workshopActions = transform.GetChild(2).gameObject;
         toolsSelection = transform.GetChild(3).gameObject;
         canvas = FindObjectOfType<UnitGUI>();
         workshopScript = FindObjectOfType<ToolsProduction>();
@@ -30,7 +30,7 @@ public class ActionsListenLogic : MonoBehaviour
         for(int index = 0; index < tools.Length; index++)
         {
             string weaponName = tools[index];
-            buildingActions.transform.GetChild(index).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { workshopScript.CreateTool(weaponName); });
+            workshopActions.transform.GetChild(index).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { workshopScript.CreateTool(weaponName); });
         }
     }
 

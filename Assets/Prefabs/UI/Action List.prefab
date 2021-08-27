@@ -1179,7 +1179,7 @@ GameObject:
   - component: {fileID: 6180084272295000105}
   - component: {fileID: 1888721632296663251}
   m_Layer: 5
-  m_Name: BuildingActions
+  m_Name: WorkshopActions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
