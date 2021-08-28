@@ -24,6 +24,7 @@ public class UpgradeBuilding : MonoBehaviour
     {
         if (buildingLvl < building.upgradeList.Length && ResourceManager.instance.CanBuild(woodCost, stoneCost, goldCost))
         {
+            ActionsListenLogic.instance.RemoveUpgradeListener();
             ResourceManager.instance.ReduceAmount(woodCost, stoneCost, goldCost, transform.position);
             ConstructBuilding constructBuilding = gameObject.AddComponent<ConstructBuilding>();
             constructBuilding.building = this.building;

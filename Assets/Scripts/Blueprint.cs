@@ -40,7 +40,7 @@ public class Blueprint : MonoBehaviour
     {
         if(Input.GetMouseButton(1))
         {
-            UnitGUI.instance.isBluePrintEnabled = false;
+            UIManager.instance.isBluePrintEnabled = false;
             Destroy(gameObject);
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -54,7 +54,7 @@ public class Blueprint : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                UnitGUI.instance.isBluePrintEnabled = false;
+                UIManager.instance.isBluePrintEnabled = false;
                 ResourceManager.instance.ReduceAmount(building.woodCost, building.stoneCost, building.goldCost, transform.position);
                 Transform newBuilding = Instantiate(building.construction, transform.position, transform.rotation);
                 int index = 0;
@@ -71,6 +71,7 @@ public class Blueprint : MonoBehaviour
         RotateObject();
 
     }
+
 
     private void RotateObject() 
     {

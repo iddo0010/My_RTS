@@ -103,7 +103,7 @@ public class UnitEngine : MonoBehaviour
     /// </summary>
     private void CheckForUserInput()
     {
-        if (!SelectionManager.instance.isSetTargetMode && !UnitGUI.instance.isBluePrintEnabled)
+        if (!SelectionManager.instance.isSetTargetMode && !UIManager.instance.isBluePrintEnabled)
         {
             if (Input.GetMouseButtonDown(1))
             {
@@ -111,7 +111,7 @@ public class UnitEngine : MonoBehaviour
             }
         }
         if (Input.GetKey(KeyCode.Space))
-            CameraMovement.instance.FollowUnit();
+            FindObjectOfType<CameraMovement>().FollowUnit();
     }
     /// <summary>
     /// Move Unit Towards Clicked location, if clicked on game object act accordingly
@@ -342,7 +342,7 @@ public class UnitEngine : MonoBehaviour
         if(unit.isInWorkshop)
         {
             unit.isInWorkshop = false;
-            UnitGUI.instance.UpdateSelectedUnit(gameObject);
+            UIManager.instance.UpdateSelectedUnit(gameObject);
         }
         
     }

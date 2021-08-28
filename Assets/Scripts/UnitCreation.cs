@@ -21,8 +21,9 @@ public class UnitCreation : MonoBehaviour
     {
         if (UnitAllowance.instance.CanBuildUnits())
         {
-            GameObject newUnit = Instantiate(unit, originalSpawnPoint, Quaternion.identity);
-            newUnit.GetComponent<NavMeshAgent>().SetDestination(spawnPoint);
+            UnitCreation currentCamp = SelectionManager.instance.selectedBuilding.GetComponent<UnitCreation>();
+            GameObject newUnit = Instantiate(unit, currentCamp.originalSpawnPoint, Quaternion.identity);
+            newUnit.GetComponent<NavMeshAgent>().SetDestination(currentCamp.spawnPoint);
             UnitAllowance.instance.CreateNewUnit(newUnit);
         }
     }
@@ -38,8 +39,9 @@ public class UnitCreation : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 10000f, 1 << 10))
         {
+            UnitCreation currentCamp = SelectionManager.instance.selectedBuilding.GetComponent<UnitCreation>();
             Instantiate(spawnCommand, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), Quaternion.identity);
-            spawnPoint = hit.point;
+            currentCamp.spawnPoint = hit.point;
         }
     }
 }

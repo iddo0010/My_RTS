@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 23888790544907516}
   - component: {fileID: 5594722101734947346}
   - component: {fileID: 7685031897579011104}
+  - component: {fileID: -1453898825505795793}
   m_Layer: 11
-  m_Name: Tent_1B
+  m_Name: Big_1B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,3 +111,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.002856731, y: 2.079682, z: 0.04308724}
   m_TimeToStationary: 0.5
+--- !u!114 &-1453898825505795793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034066087418852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09783bf8b7b08e04fb0dc0bbd7adc4cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentCap: 4

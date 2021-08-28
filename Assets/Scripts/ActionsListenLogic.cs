@@ -6,51 +6,39 @@ using UnityEditor;
 
 public class ActionsListenLogic : MonoBehaviour
 {
-    GameObject unitCommands, buildOptions, workshopActions, toolsSelection;
-    UnitGUI canvas;
-    ToolsProduction workshopScript;
-    [SerializeField] BuildingSettings[] buildings;
-    string[] tools = { "HarvestingAxe", "WarAxe", "Hammer", "Club", "MiningHoe", "Spear", "Shield" };
-    void Start()
+    //Singelton 
+    public static ActionsListenLogic instance;
+
+    GameObject unitCommands, buildOptions, toolsSelection;
+    [SerializeField] BuildingSettings[] buildings; //Array of all building to be built
+
+    void Awake()
     {
+        instance = this;
         unitCommands = transform.GetChild(0).gameObject;
         buildOptions = transform.GetChild(1).gameObject;
-        workshopActions = transform.GetChild(2).gameObject;
         toolsSelection = transform.GetChild(3).gameObject;
-        canvas = FindObjectOfType<UnitGUI>();
-        workshopScript = FindObjectOfType<ToolsProduction>();
         SetUnitCommands();
         SetBuildOptions();
-        SetBuildingActions();
-    }
-
-    //Refactor by inserting all strings into an array and changing to a for-loop
-    private void SetBuildingActions()
-    {
-        for(int index = 0; index < tools.Length; index++)
-        {
-            string weaponName = tools[index];
-            workshopActions.transform.GetChild(index).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { workshopScript.CreateTool(weaponName); });
-        }
     }
 
     private void SetBuildOptions()
     {
-        for(int index =0; index < buildings.Length; index++)
+        for (int index = 0; index < buildings.Length; index++)
         {
             BuildingSettings building = buildings[index];
-            buildOptions.transform.GetChild(index).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { canvas.ActivateBluePrint(building); });
+            buildOptions.transform.GetChild(index).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { UIManager.instance.ActivateBluePrint(building); });
         }
-        buildOptions.transform.GetChild(14).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { canvas.OpenActionsPanel(0); });
+        buildOptions.transform.GetChild(14).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { UIManager.instance.OpenActionsPanel(0); });
     }
 
     private void SetUnitCommands()
     {
-        unitCommands.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(FindObjectOfType<SelectionManager>().DeSelect);
-        unitCommands.transform.GetChild(1).GetChild(0).GetComponent<Button>().onClick.AddListener(canvas.SetUnitPath);
-        unitCommands.transform.GetChild(2).GetChild(0).GetComponent<Button>().onClick.AddListener(canvas.CancelUnitAction);
+        unitCommands.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(SelectionManager.instance.DeSelect);
+        unitCommands.transform.GetChild(1).GetChild(0).GetComponent<Button>().onClick.AddListener(UIManager.instance.SetUnitPath);
+        unitCommands.transform.GetChild(2).GetChild(0).GetComponent<Button>().onClick.AddListener(UIManager.instance.CancelUnitAction);
         unitCommands.transform.GetChild(3).GetChild(0).GetComponent<Button>().onClick.AddListener(FindObjectOfType<CameraMovement>().FollowUnit);
-        unitCommands.transform.GetChild(4).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { canvas.OpenActionsPanel(1); }) ;
+        unitCommands.transform.GetChild(4).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { UIManager.instance.OpenActionsPanel(1); }) ;
     }
 
     public void SetToolsSelection(GameObject workshop)
@@ -77,6 +65,31 @@ public class ActionsListenLogic : MonoBehaviour
         //    toolsSelection.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick
         //    print(t);
         //}
+    }
+
+    public void SetUpgradeButton(UpgradeBuilding currentBuilding)
+    {
+        foreach (Transform panel in transform)
+        {
+            if (panel.gameObject.activeInHierarchy)
+            {
+                Transform upgradeButton = panel.GetChild(13).GetChild(0);
+                upgradeButton.gameObject.SetActive(true);
+                upgradeButton.GetComponentInChildren<Button>().onClick.AddListener(currentBuilding.UpgradeButton);
+            }
+        }
+    }
+    public void RemoveUpgradeListener()
+    {
+        foreach (Transform panel in transform)
+        {
+            if (panel.gameObject.activeInHierarchy)
+            {
+                Transform upgradeButton = panel.GetChild(13).GetChild(0);
+                upgradeButton.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+                upgradeButton.gameObject.SetActive(false);
+            }
+        }
     }
 
     // Update is called once per frame

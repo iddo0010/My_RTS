@@ -20,7 +20,7 @@ public class SelectionManager : MonoBehaviour
 
     public bool isSetTargetMode;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         instance = this;
         GameObject[] temp = GameObject.FindGameObjectsWithTag("FriendlyUnit");
@@ -110,7 +110,7 @@ public class SelectionManager : MonoBehaviour
                     case 8: //FriendlyUnit
                         hit.collider.GetComponent<UnitEngine>().SelectUnit();
                         selectedUnits.Add(hit.collider.gameObject);
-                        UnitGUI.instance.UpdateSelectedUnit(selectedUnits);
+                        UIManager.instance.UpdateSelectedUnit(selectedUnits);
                         break;
                     case 11: //Building
                         BuildingEngine currentBuilding;
@@ -177,7 +177,7 @@ public class SelectionManager : MonoBehaviour
                     unit.GetComponent<UnitEngine>().SelectUnit();
                 }
             }
-            UnitGUI.instance.UpdateSelectedUnit(selectedUnits);
+            UIManager.instance.UpdateSelectedUnit(selectedUnits);
         }
     }
     /// <summary>
@@ -197,7 +197,7 @@ public class SelectionManager : MonoBehaviour
         {
             selectedBuilding.GetComponent<BuildingEngine>().DeSelectBuilding();
         }
-        UnitGUI.instance.DeSelectUI();
+        UIManager.instance.DeSelectUI();
     }
 
 }

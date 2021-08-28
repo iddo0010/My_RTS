@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 7003476221141514511}
   - component: {fileID: -2187963334139339677}
   - component: {fileID: 1941487904616852286}
+  - component: {fileID: 9039177625858926048}
   m_Layer: 11
   m_Name: Tower_B
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,3 +129,15 @@ MonoBehaviour:
   woodCost: 5
   stoneCost: 0
   goldCost: 0
+--- !u!114 &9039177625858926048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1363987054158150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01533bbb7d1695f4bb2f839b1d941d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

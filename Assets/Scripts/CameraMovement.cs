@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    //Singelton
-    public static CameraMovement instance;
 
     //Follow a specific Object
     public Transform followTransform;
@@ -32,7 +30,6 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
         newPos = transform.position;
         newRot = transform.rotation;
         newZoom = cameraTrn.localPosition;

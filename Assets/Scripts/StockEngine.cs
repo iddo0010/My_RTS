@@ -7,11 +7,10 @@ public class StockEngine : MonoBehaviour
     public ResourceType type;
 
     [SerializeField] int maxCapacity;
-    int currentQuantity;
+    [SerializeField] int currentQuantity;
     // Start is called before the first frame update
     void Awake()
     {
-        currentQuantity = 0;
         switch (type)
         {
             case ResourceType.Tree:
@@ -26,12 +25,20 @@ public class StockEngine : MonoBehaviour
         int lastResourceActive = -1;
         foreach (Transform child in transform) //Finds the index of the last resource spot active
         {
-            if (!child.gameObject.activeInHierarchy)
+            if (lastResourceActive >= currentQuantity - 1)
                 break;
-            lastResourceActive++;
+            else
+            {
+                child.gameObject.SetActive(true);
+                lastResourceActive++;
+            }
         }
-        currentQuantity = lastResourceActive + 1;
-
+    }
+    private void Start()
+    {
+        //Only when game starts, adds the existing quantity in each stock to the resource manager(for development purpeses)
+        ResourceManager.instance.resources[type] += currentQuantity;
+        ResourceManager.instance.UpdateUI();
     }
     /// <summary>
     /// Visually Adds x  amount of Resources to the Stock Pile 

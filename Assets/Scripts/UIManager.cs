@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UnitGUI : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     //Singleton
-    public static UnitGUI instance;
+    public static UIManager instance;
 
     //Selected Units Panel
     [SerializeField] GameObject singleUnitImage;
@@ -15,21 +15,15 @@ public class UnitGUI : MonoBehaviour
     [SerializeField] GameObject multipleUnitOption;
 
     //Unit Action Panel
-    Transform itemList;
     [SerializeField] Transform unitCommands;
-    [SerializeField] Transform buildingOptions;
-    [SerializeField] Transform buildingActions; // No Use (Delete)
-    Transform SelectionTool;
+    [SerializeField] Transform actionList;
 
     public bool isBluePrintEnabled;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         instance = this;
         isBluePrintEnabled = false;
-        SelectionTool = GameObject.Find("Action List").transform.GetChild(3);
-        itemList = GameObject.Find("Action List").transform;
-        
     }
 
     // Update is called once per frame
@@ -37,6 +31,9 @@ public class UnitGUI : MonoBehaviour
     {
         
     }
+    /// <summary>
+    /// Reset the UI for no selection
+    /// </summary>
     public void DeSelectUI()
     {
         if (singleUnitImage.activeInHierarchy) //Reset Single unit image
@@ -135,14 +132,13 @@ public class UnitGUI : MonoBehaviour
 
     public void OpenActionsPanel(int i)
     {
-        foreach(Transform panel in itemList)
+        foreach (Transform panel in actionList)
         {
             if (panel.gameObject.activeInHierarchy)
                 panel.gameObject.SetActive(false);
         }
-            itemList.GetChild(i).gameObject.SetActive(true);           
+        actionList.GetChild(i).gameObject.SetActive(true);
     }
-
     public void ActivateBluePrint(BuildingSettings building)
     {
         if (!isBluePrintEnabled && ResourceManager.instance.CanBuild(building.woodCost, building.stoneCost, building.goldCost))

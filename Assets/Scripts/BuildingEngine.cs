@@ -30,9 +30,18 @@ public class BuildingEngine : MonoBehaviour
         switch(gameObject.tag)
         {
             case "Workshop":
-                UnitGUI.instance.OpenActionsPanel(2);
+                UIManager.instance.OpenActionsPanel(2);
+                break;
+            case "Camp":
+                UIManager.instance.OpenActionsPanel(4);
+                break;
+            case "Tower":
+                UIManager.instance.OpenActionsPanel(5);
                 break;
         }
+        UpgradeBuilding upgrade;
+        if (TryGetComponent<UpgradeBuilding>(out upgrade) && gameObject.tag != "Construction")
+            ActionsListenLogic.instance.SetUpgradeButton(upgrade);
     }
 
 

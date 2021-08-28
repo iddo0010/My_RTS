@@ -13,7 +13,6 @@ public class ToolsProduction : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
     }
 
     // Update is called once per frame
@@ -34,8 +33,7 @@ public class ToolsProduction : MonoBehaviour
                 ResetToolTransform(tool);
                 break;
             }
-        }       
-        
+        }             
     }
 
     private static void ResetToolTransform(GameObject tool)
@@ -51,7 +49,7 @@ public class ToolsProduction : MonoBehaviour
         unit.transform.LookAt(transform.GetChild(1));
         unit.unit.isInWorkshop = true;
         FindObjectOfType<ActionsListenLogic>().SetToolsSelection(workshop);
-        UnitGUI.instance.UpdateSelectedUnit(unit.gameObject);
+        UIManager.instance.UpdateSelectedUnit(unit.gameObject);
     }
 
     public List<GameObject> GetTools()

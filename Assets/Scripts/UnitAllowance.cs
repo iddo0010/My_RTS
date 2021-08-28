@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UnitAllowance : MonoBehaviour
 {
     //Singelton
     public static UnitAllowance instance;
 
+    [SerializeField] TextMeshProUGUI unitsCapacityText;
+
     public int maxUnitCapacity;
     public int currentUnitAmount;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         instance = this;
-        maxUnitCapacity = 4; //starts the game with 3 units.
+        maxUnitCapacity = 0; 
         currentUnitAmount = SelectionManager.instance.unitList.Count;
 
     }
@@ -33,11 +36,17 @@ public class UnitAllowance : MonoBehaviour
     public void AddUnitCapacity(int amount)
     {
         maxUnitCapacity += amount;
+        UpdateUI();
     }
 
     public void CreateNewUnit(GameObject unit)
     {
         SelectionManager.instance.unitList.Add(unit);
         currentUnitAmount++;
+        UpdateUI();
+    }
+    private void UpdateUI()
+    {
+        unitsCapacityText.text = currentUnitAmount.ToString() + " / " + maxUnitCapacity.ToString();
     }
 }
