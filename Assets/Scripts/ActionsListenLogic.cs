@@ -89,8 +89,12 @@ public class ActionsListenLogic : MonoBehaviour
     public void ToolSelected(int slot)
     {
         ToolsProduction workshop = SelectionManager.instance.selectedUnits[0].GetComponent<UnitEngine>().currentWorkshop;
-        Destroy(workshop.transform.GetChild(1).GetChild(slot).GetChild(0).gameObject);
-        SetToolsSelection(workshop);
+        Transform selectedSlot = workshop.transform.GetChild(1).GetChild(slot);
+        WeaponManagement unitWeapon = SelectionManager.instance.selectedUnits[0].GetComponent<WeaponManagement>();
+        unitWeapon.SetWeapon(selectedSlot.GetChild(0).name);
+       
+        Destroy(selectedSlot.GetChild(0).gameObject);
+        toolsSelection.transform.GetChild(slot).GetChild(0).gameObject.SetActive(false);
     }
 
     // Update is called once per frame

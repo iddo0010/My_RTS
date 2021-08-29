@@ -134,8 +134,7 @@ public class UnitEngine : MonoBehaviour
                     Instantiate(moveCommand, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), resourceCommand.transform.rotation);
                     agent.SetDestination(hit.point);
                     break;
-                case 11://Building Layer
-                    print(hit.transform.name);
+                case 11://Building Layer                 
                     GoToTarget(hit.transform.gameObject);
                     break;
             }

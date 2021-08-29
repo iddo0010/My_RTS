@@ -41,4 +41,23 @@ public class WeaponManagement : MonoBehaviour
         }
 
     }
+
+    public void SetWeapon(string weapon)
+    {
+        weapon = weapon.Replace("(Clone)", "");
+        
+        foreach (Transform child in mainWeaponDir.transform)
+        {
+            
+            if (child.name == weapon)
+            {
+                child.gameObject.SetActive(true);
+                engine.mainWeapon = new Weapon(child.name);
+                UIManager.instance.UpdateSelectedUnit(gameObject);
+            }
+            else
+                child.gameObject.SetActive(false);
+        }
+
+    }
 }
