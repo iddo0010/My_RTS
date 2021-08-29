@@ -41,30 +41,23 @@ public class ActionsListenLogic : MonoBehaviour
         unitCommands.transform.GetChild(4).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { UIManager.instance.OpenActionsPanel(1); }) ;
     }
 
-    public void SetToolsSelection(GameObject workshop)
+    public void SetToolsSelection(ToolsProduction workshop)
     {
-       List<GameObject> tools = workshop.GetComponent<ToolsProduction>().GetTools();
+       List<GameObject> tools = workshop.GetTools();
 
         for (int i = 0; i < tools.Count; i++)
         {
-            string tool = tools[i].name;
-            //toolsSelection.transform.GetChild(i).GetChild(0).GetComponent<Button>().onClick.AddListener(delegate { workshopScript.CreateTool(weaponName); });
-            print(tool);
-            tool = tool.Replace("(Clone)", "_Icon");
-            print(tool);
-
-            toolsSelection.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Images/" + tool+".png");
-            if(toolsSelection.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite.name == "None")
+            if (tools[i] != null)
             {
-                toolsSelection.transform.GetChild(i).GetChild(0).gameObject.SetActive(false);
+                string tool = tools[i].name;
+                tool = tool.Replace("(Clone)", "_Icon");
+                toolsSelection.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Resources/Images/" + tool+".png");
+                toolsSelection.transform.GetChild(i).GetChild(0).gameObject.SetActive(true);
             }
+            else
+                toolsSelection.transform.GetChild(i).GetChild(0).gameObject.SetActive(false);
         }
 
-        //foreach(GameObject t in workshop.GetComponent<ToolsProduction>().GetTools())
-        //{
-        //    toolsSelection.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick
-        //    print(t);
-        //}
     }
 
     public void SetUpgradeButton(UpgradeBuilding currentBuilding)
@@ -92,9 +85,19 @@ public class ActionsListenLogic : MonoBehaviour
         }
     }
 
+    //Button connected manually - might want to make it dynamic
+    public void ToolSelected(int slot)
+    {
+        ToolsProduction workshop = SelectionManager.instance.selectedUnits[0].GetComponent<UnitEngine>().currentWorkshop;
+        Destroy(workshop.transform.GetChild(1).GetChild(slot).GetChild(0).gameObject);
+        SetToolsSelection(workshop);
+    }
+
     // Update is called once per frame
     void Update()
     {
         
     }
+
+
 }

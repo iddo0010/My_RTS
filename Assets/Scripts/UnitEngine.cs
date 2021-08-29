@@ -31,6 +31,7 @@ public class UnitEngine : MonoBehaviour
     public Weapon offWeapon;
 
     public GameObject targetToFind;
+    public ToolsProduction currentWorkshop;
     // Start is called before the first frame update
     void Awake()
     {
@@ -284,7 +285,10 @@ public class UnitEngine : MonoBehaviour
                                 }
                                 break;
                             case "Workshop":
-                                target.GetComponent<ToolsProduction>().ChooseTool(this, target);
+                                {
+                                    currentWorkshop = target.GetComponent<ToolsProduction>();
+                                    currentWorkshop.ChooseTool(this);
+                                }
                                 break;
                         }
                         break;
@@ -352,4 +356,6 @@ public class UnitEngine : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, searchRadius);
     }
+
+ 
 }

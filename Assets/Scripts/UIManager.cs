@@ -75,7 +75,10 @@ public class UIManager : MonoBehaviour
 
         else
         {
-            OpenActionsPanel(3);
+            //TODO extract to a new overload method of UpdateSelectedUnit(GameObject SelectedUnit, ToolsProduction workshop)
+            //FindObjectOfType<ActionsListenLogic>().SetToolsSelection(workshop);
+            ActionsListenLogic.instance.SetToolsSelection(engine.currentWorkshop);
+            OpenActionsPanel(3); //ToolsSelection panel
         }
     }
     public void UpdateSelectedUnit(List<GameObject> selectedUnits)

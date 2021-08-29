@@ -8,17 +8,22 @@ public class ToolsProduction : MonoBehaviour
 {
 
     List<GameObject> tools = new List<GameObject>();
-
+    Transform rack;
 
     // Start is called before the first frame update
     void Awake()
     {
     }
 
+    private void Start()
+    {
+        rack = transform.GetChild(1);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     public void CreateTool(string toolName)
@@ -43,12 +48,11 @@ public class ToolsProduction : MonoBehaviour
         tool.transform.localScale = Vector3.one;
     }
 
-    public void ChooseTool(UnitEngine unit, GameObject workshop)
+    public void ChooseTool(UnitEngine unit)
     {
         unit.transform.position = transform.GetChild(1).position + (Vector3.forward * 1.5f);
         unit.transform.LookAt(transform.GetChild(1));
         unit.unit.isInWorkshop = true;
-        FindObjectOfType<ActionsListenLogic>().SetToolsSelection(workshop);
         UIManager.instance.UpdateSelectedUnit(unit.gameObject);
     }
 
@@ -57,13 +61,26 @@ public class ToolsProduction : MonoBehaviour
         tools.Clear();
         for (int i = 0; i < 4; i++)
         {
-            if(transform.GetChild(1).GetChild(i).childCount != 0)
-            {
-                //tools[i] = transform.GetChild(1).GetChild(i).GetChild(0).gameObject;
-                tools.Add(transform.GetChild(1).GetChild(i).GetChild(0).gameObject);
-            }       
+            if (rack.GetChild(i).childCount != 0)
+                tools.Add(rack.GetChild(i).GetChild(0).gameObject);
+            else
+                tools.Add(null);
         }
  
         return tools;
     }
+
+ 
+
+
 }
+//if(Input.GetKeyDown(KeyCode.Alpha4))
+//       {
+//           int num = 0;
+//           foreach (Transform child in rack)
+//           {
+//               if (child.childCount != 0)
+//                   num++;
+//           }
+//           print(num);
+//       }
