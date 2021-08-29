@@ -119,7 +119,6 @@ public class UnitEngine : MonoBehaviour
     /// </summary>
     public void MoveUnit(Vector3 mousePos)
     {
-        CancelCurrentAction();
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
@@ -131,6 +130,7 @@ public class UnitEngine : MonoBehaviour
                     GoToTarget(hit.transform.gameObject);
                     break;
                 case 10://Ground Layer
+                    CancelCurrentAction();
                     Instantiate(moveCommand, new Vector3(hit.point.x, hit.point.y + 0.2f, hit.point.z), resourceCommand.transform.rotation);
                     agent.SetDestination(hit.point);
                     break;
@@ -216,6 +216,7 @@ public class UnitEngine : MonoBehaviour
     /// <param name="target">target</param>
     public void GoToTarget(GameObject target)
     {
+        CancelCurrentAction();
         targetToFind = target;
         switch (target.layer)
         {
