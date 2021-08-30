@@ -7758,6 +7758,7 @@ MonoBehaviour:
   unit:
     isSelected: 0
     isMoving: 0
+    isInWorkshop: 0
     isGatheringRoutine: 0
     isHarvesting: 0
     isBuilding: 0
@@ -7779,6 +7780,8 @@ MonoBehaviour:
     dmg: 0
     level: 0
     canBuild: 1
+  targetToFind: {fileID: 0}
+  currentWorkshop: {fileID: 0}
 --- !u!195 &4522675684979513542
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -18516,7 +18519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1360571697070732, guid: e093b91c14a8b9c49a95a2a6f66959b0, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1360571697070732, guid: e093b91c14a8b9c49a95a2a6f66959b0, type: 3}
       propertyPath: m_IsActive

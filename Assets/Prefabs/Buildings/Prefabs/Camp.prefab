@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1260596596608391900}
   - component: {fileID: 2759183182335631224}
   - component: {fileID: 1987440421865113212}
+  - component: {fileID: -356436932004916294}
   m_Layer: 11
   m_Name: Camp
   m_TagString: Camp
@@ -140,6 +141,22 @@ MonoBehaviour:
   unit: {fileID: 4523264525520351487, guid: e1d9b5215ccd62745b5d6f08feb2dbb5, type: 3}
   spawnCommand: {fileID: 1960203133823226, guid: b8fd76c38f04df3448759aa3431ebfc7,
     type: 3}
+  unitCreationDelay: 1
+  unitCreationSteps: 5
+  unitIcon: {fileID: 3426536655583234252, guid: ebc5ee19180b6f74f83f2a55aa326545,
+    type: 3}
+--- !u!114 &-356436932004916294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361361820726916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b17042ca0527247a4d3dca7f745abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5635813709655352855
 GameObject:
   m_ObjectHideFlags: 0

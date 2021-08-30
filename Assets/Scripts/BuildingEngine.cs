@@ -19,29 +19,14 @@ public class BuildingEngine : MonoBehaviour
     public void SelectBuilding()
     {
         SelectionManager.instance.selectedBuilding = gameObject;
-        BuildingActionsUI();
+        UIManager.instance.BuildingActionsUI(transform);
+        UpgradeBuilding upgrade;
+        if (TryGetComponent<UpgradeBuilding>(out upgrade) && gameObject.tag != "Construction")
+            ActionsListenLogic.instance.SetUpgradeButton(upgrade);
     }
     public void DeSelectBuilding()
     {
         SelectionManager.instance.selectedBuilding = null;
-    }
-    public void BuildingActionsUI()
-    {
-        switch(gameObject.tag)
-        {
-            case "Workshop":
-                UIManager.instance.OpenActionsPanel(2);
-                break;
-            case "Camp":
-                UIManager.instance.OpenActionsPanel(4);
-                break;
-            case "Tower":
-                UIManager.instance.OpenActionsPanel(5);
-                break;
-        }
-        UpgradeBuilding upgrade;
-        if (TryGetComponent<UpgradeBuilding>(out upgrade) && gameObject.tag != "Construction")
-            ActionsListenLogic.instance.SetUpgradeButton(upgrade);
     }
 
 

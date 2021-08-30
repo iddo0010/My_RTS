@@ -9,7 +9,8 @@ public class ActionsListenLogic : MonoBehaviour
     //Singelton 
     public static ActionsListenLogic instance;
 
-    GameObject unitCommands, buildOptions, toolsSelection;
+    GameObject unitCommands, buildOptions, toolsSelection, campActions;
+    [SerializeField] GameObject unitIcon;
     [SerializeField] BuildingSettings[] buildings; //Array of all building to be built
 
     void Awake()
@@ -18,10 +19,17 @@ public class ActionsListenLogic : MonoBehaviour
         unitCommands = transform.GetChild(0).gameObject;
         buildOptions = transform.GetChild(1).gameObject;
         toolsSelection = transform.GetChild(3).gameObject;
+        campActions = transform.GetChild(4).gameObject;
         SetUnitCommands();
         SetBuildOptions();
+        SetCampaActions();
     }
 
+    private void SetCampaActions() // Sets Up The camp buttons(both methods work with the selected building)
+    {
+        campActions.transform.Find("Content 1/CreateUnit/Button").GetComponent<Button>().onClick.AddListener(delegate { UIManager.instance.QueueUnit(unitIcon); });
+        campActions.transform.Find("Content 2/ChangeSpawnPoint/Button").GetComponent<Button>().onClick.AddListener(UIManager.instance.SpawnPointButton);
+    }
     private void SetBuildOptions()
     {
         for (int index = 0; index < buildings.Length; index++)

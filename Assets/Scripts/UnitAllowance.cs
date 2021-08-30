@@ -12,11 +12,13 @@ public class UnitAllowance : MonoBehaviour
 
     public int maxUnitCapacity;
     public int currentUnitAmount;
+    public int unitsInProcess;
     // Start is called before the first frame update
     void Awake()
     {
         instance = this;
-        maxUnitCapacity = 0; 
+        maxUnitCapacity = 0;
+        unitsInProcess = 0;
         currentUnitAmount = SelectionManager.instance.unitList.Count;
 
     }
@@ -29,7 +31,7 @@ public class UnitAllowance : MonoBehaviour
 
     public bool CanBuildUnits()
     {
-        if (currentUnitAmount < maxUnitCapacity)
+        if (currentUnitAmount + unitsInProcess < maxUnitCapacity)
             return true;
         return false;
     }
@@ -38,11 +40,15 @@ public class UnitAllowance : MonoBehaviour
         maxUnitCapacity += amount;
         UpdateUI();
     }
-
+    /// <summary>
+    /// Adds the given Unit to the game unitlist
+    /// </summary>
+    /// <param name="unit"></param>
     public void CreateNewUnit(GameObject unit)
     {
-        SelectionManager.instance.unitList.Add(unit);
+        unitsInProcess--;
         currentUnitAmount++;
+        SelectionManager.instance.unitList.Add(unit);
         UpdateUI();
     }
     private void UpdateUI()
