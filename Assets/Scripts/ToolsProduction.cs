@@ -84,16 +84,6 @@ public class ToolsProduction : MonoBehaviour, ICreator
  
         return tools;
     }
-    //public int ToolsInRack()
-    //{
-    //    int toolCount = 0;
-    //    for (int i = 0; i < 4; i++)
-    //    {
-    //        if (rack.GetChild(i).childCount != 0)
-    //            toolCount++;
-    //    }
-    //    return toolCount;
-    //}
 
     public Queue<GameObject> GetIconQueue()
     {
@@ -145,7 +135,10 @@ public class ToolsProduction : MonoBehaviour, ICreator
         }
         canBuild = true;
         if (SelectionManager.instance.selectedBuilding == gameObject) // if the building is currently selected
+        {
             Destroy(multipleUnitContent.transform.GetChild(0).gameObject); //removes icon from the info panel
+            UIManager.instance.UpdateQueueListeners(0);
+        }
     }
 }
 //if(Input.GetKeyDown(KeyCode.Alpha4))

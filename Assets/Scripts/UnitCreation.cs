@@ -90,9 +90,12 @@ public class UnitCreation : MonoBehaviour, ICreator
         GameObject newUnit = Instantiate(unit, originalSpawnPoint, Quaternion.identity);
         newUnit.GetComponent<NavMeshAgent>().SetDestination(spawnPoint); 
         UnitAllowance.instance.CreateNewUnit(newUnit); //adds the new unit to the game unitlist
-        canBuild = true; 
-        if(SelectionManager.instance.selectedBuilding == gameObject) // if the building is currently selected
+        canBuild = true;
+        if (SelectionManager.instance.selectedBuilding == gameObject) // if the building is currently selected
+        {
             Destroy(multipleUnitContent.transform.GetChild(0).gameObject); //removes icon from the info panel
+            UIManager.instance.UpdateQueueListeners(0);
+        }
     }
     /// <summary>
     /// Changes the spawn point of the building by given mouse position

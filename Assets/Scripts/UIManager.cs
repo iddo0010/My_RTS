@@ -214,20 +214,12 @@ public class UIManager : MonoBehaviour
     /// Removes a specific command from queue by index
     /// </summary>
     /// <param name="index"></param>
-    public void UnQueueUnit(int index) 
+    public void UnQueueUnit(int index)
     {
         ICreator currentCreator = SelectionManager.instance.selectedBuilding.GetComponent<ICreator>(); // current ICreator building selected 
         RemoveFromQueue.RemoveAt(currentCreator.GetIconQueue(), index);
         Destroy(multipleUnitContent.transform.GetChild(index).gameObject); //removes icon from the info panel
-        foreach (Transform icon in multipleUnitContent.transform) //Delegates a new listener to each icon after the removed icon with a correct value
-        {
-            if (icon.GetSiblingIndex() >= index)
-            {
-                Button button = icon.GetComponentInChildren<Button>();
-                button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(delegate { UIManager.instance.UnQueueUnit(icon.GetSiblingIndex()); });
-            }
-        }
+        UpdateQueueListeners(index);
         if (index == 0) // if the command is first in line
         {
             currentCreator.Stop();
@@ -239,6 +231,20 @@ public class UIManager : MonoBehaviour
         else
             currentCreator.commandHandler.RemoveCommand(index - 1);
     }
+
+    public void UpdateQueueListeners(int index)
+    {
+        foreach (Transform icon in multipleUnitContent.transform) //Delegates a new listener to each icon after the removed icon with a correct value
+        {
+            if (icon.GetSiblingIndex() >= index)
+            {
+                Button button = icon.GetComponentInChildren<Button>();
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(delegate { UIManager.instance.UnQueueUnit(icon.GetSiblingIndex()); });
+            }
+        }
+    }
+
     /// <summary>
     /// Activates a bluePrint object by building given
     /// </summary>
