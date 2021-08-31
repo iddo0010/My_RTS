@@ -83,8 +83,10 @@ public class UIManager : MonoBehaviour
         UnitEngine engine = selectedUnit.GetComponent<UnitEngine>();
         foreach (Transform child in singleUnitImage.transform)
         {
-            if (child.name.Contains(engine.mainWeapon.type.ToString()))
+            if (child.name == engine.mainWeapon.type.ToString())
                 child.gameObject.SetActive(true);
+            else
+                child.gameObject.SetActive(false);
         }
 
         if (!engine.unit.isInWorkshop) //if the unit not currently in a workshop, updates the general unit actions
@@ -115,7 +117,7 @@ public class UIManager : MonoBehaviour
                 GameObject temp = Instantiate(multipleUnitOption, multipleUnitContent.transform);
                 foreach (Transform child in temp.transform)
                 {
-                    if (child.name.Contains(unit.GetComponent<UnitEngine>().mainWeapon.type.ToString()))
+                    if (child.name == unit.GetComponent<UnitEngine>().mainWeapon.type.ToString())
                         child.gameObject.SetActive(true);
                 }
                 if (unit.GetComponent<UnitEngine>().mainWeapon.canBuild)
@@ -204,7 +206,7 @@ public class UIManager : MonoBehaviour
     public void QueueUnit(GameObject icon)
     {
         ICreator currentCreator = SelectionManager.instance.selectedBuilding.GetComponent<ICreator>(); // current ICreator building selected 
-        ICommand c = new CreationCommand(currentCreator); // New Creation Command with the current ICreator
+        ICommand c = new CreationCommand(currentCreator, icon.name); // New Creation Command with the current ICreator
         currentCreator.commandHandler.AddCommand(c); // adds the new command to the current building queue handler
         currentCreator.AddToQueue(icon); // adds the icon given to the current building icon queue (to show on the UI)
     }
@@ -228,10 +230,11 @@ public class UIManager : MonoBehaviour
         }
         if (index == 0) // if the command is first in line
         {
-            if(UnitAllowance.instance.CanBuildUnits()) 
-                currentCreator.Stop(); // stop running coroutine from current ICreator
-            else
-                currentCreator.commandHandler.RemoveCommand(index); //if the coroutine didnt start yet, remove the first command from the command handler
+            currentCreator.Stop();
+            //if(UnitAllowance.instance.CanBuildUnits()) 
+            //    currentCreator.Stop(); // stop running coroutine from current ICreator
+            //else
+            //    currentCreator.commandHandler.RemoveCommand(index); //if the coroutine didnt start yet, remove the first command from the command handler
         }
         else
             currentCreator.commandHandler.RemoveCommand(index - 1);

@@ -16,7 +16,6 @@ public class UnitCreation : MonoBehaviour, ICreator
     [SerializeField] int unitCreationSteps;
 
     Transform multipleUnitContent;
-    [SerializeField] GameObject unitIcon;
 
     Queue<GameObject> unitIcons;
     public CommandHandler commandHandler { get { return GetComponent<CommandHandler>(); } }
@@ -57,7 +56,7 @@ public class UnitCreation : MonoBehaviour, ICreator
     /// <summary>
     /// Starts the unit creation coroutine
     /// </summary>
-    public void Create()
+    public void Create(string name)
     {
         UnitAllowance.instance.unitsInProcess++;
         StartCoroutine(StartCreation(unitCreationDelay, unitCreationSteps));
@@ -65,9 +64,14 @@ public class UnitCreation : MonoBehaviour, ICreator
     }
     public void Stop()
     {
-        UnitAllowance.instance.unitsInProcess--;
-        StopAllCoroutines();
-        canBuild = true;
+        if (canBuild)
+            commandHandler.RemoveCommand(0);
+        else
+        {
+            UnitAllowance.instance.unitsInProcess--;
+            StopAllCoroutines();
+            canBuild = true;
+        }
     }
     /// <summary>
     /// Create a unit during a given amount of time

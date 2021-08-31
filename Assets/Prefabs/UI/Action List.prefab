@@ -1401,7 +1401,7 @@ GameObject:
   - component: {fileID: 4940798797817688841}
   - component: {fileID: 7806807964179364404}
   m_Layer: 5
-  m_Name: Button
+  m_Name: HarvestingAxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1505,19 +1505,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4940798797817688841}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6986652808593646055, guid: a16c2a7a6c848a746b4c880f08313dd4,
-          type: 3}
-        m_MethodName: CreateTool
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: HarvestingAxe
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1306082542915574219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,7 +1519,7 @@ GameObject:
   - component: {fileID: 3874917745987056938}
   - component: {fileID: 8623780386744376043}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Club
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1635,19 +1623,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3874917745987056938}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6986652808593646055, guid: a16c2a7a6c848a746b4c880f08313dd4,
-          type: 3}
-        m_MethodName: CreateTool
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Club
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1325781312093415773
 GameObject:
   m_ObjectHideFlags: 0
@@ -3527,7 +3503,7 @@ GameObject:
   - component: {fileID: 1013480137301224102}
   - component: {fileID: 4206300250993252876}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3631,19 +3607,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1013480137301224102}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6986652808593646055, guid: a16c2a7a6c848a746b4c880f08313dd4,
-          type: 3}
-        m_MethodName: CreateTool
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Hammer
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &3091766664914520628
 GameObject:
   m_ObjectHideFlags: 0
@@ -5271,6 +5235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitIcon: {fileID: 3426536655583234252, guid: ebc5ee19180b6f74f83f2a55aa326545,
     type: 3}
+  toolIcons: []
   buildings:
   - {fileID: 11400000, guid: aad62675aea7ff44c9566906b2e477dd, type: 2}
   - {fileID: 11400000, guid: 69e694bfb5fdf21488901a4e7727c8d4, type: 2}
@@ -6036,7 +6001,7 @@ GameObject:
   - component: {fileID: 6447924316366854945}
   - component: {fileID: 3701482242956796211}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6140,19 +6105,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6447924316366854945}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6986652808593646055, guid: a16c2a7a6c848a746b4c880f08313dd4,
-          type: 3}
-        m_MethodName: CreateTool
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Spear
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &4443068418569808546
 GameObject:
   m_ObjectHideFlags: 0
@@ -7498,7 +7451,7 @@ GameObject:
   - component: {fileID: 8215463414471315138}
   - component: {fileID: 6729637815374021310}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7602,19 +7555,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8215463414471315138}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6986652808593646055, guid: a16c2a7a6c848a746b4c880f08313dd4,
-          type: 3}
-        m_MethodName: CreateTool
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Shield
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6445677134508704698
 GameObject:
   m_ObjectHideFlags: 0
@@ -9215,7 +9156,7 @@ GameObject:
   - component: {fileID: 2413678860641700588}
   - component: {fileID: 5547987814411300304}
   m_Layer: 5
-  m_Name: Button
+  m_Name: WarAxe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9319,19 +9260,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2413678860641700588}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6986652808593646055, guid: a16c2a7a6c848a746b4c880f08313dd4,
-          type: 3}
-        m_MethodName: CreateTool
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: WarAxe
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8478858351611259195
 GameObject:
   m_ObjectHideFlags: 0
@@ -9938,7 +9867,7 @@ GameObject:
   - component: {fileID: 8372368897671693129}
   - component: {fileID: 8108937337626764398}
   m_Layer: 5
-  m_Name: Button
+  m_Name: MiningHoe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10042,19 +9971,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8372368897671693129}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6986652808593646055, guid: a16c2a7a6c848a746b4c880f08313dd4,
-          type: 3}
-        m_MethodName: CreateTool
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MiningHoe
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8994421289822875164
 GameObject:
   m_ObjectHideFlags: 0

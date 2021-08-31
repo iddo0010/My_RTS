@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum weaponType
 {
-    None,HarvestingAxe, Axe, Hammer, Club, MiningHoe, Spear, Shield
+    None,HarvestingAxe, WarAxe, Hammer, Club, MiningHoe, Spear, Shield
 }
 [System.Serializable]
 public class Weapon 
@@ -24,8 +24,8 @@ public class Weapon
                 //dmg = 0; TODO - Decide on weapons DMG
                 level = 1;
                 break;
-            case "Axe":
-                type = weaponType.Axe;
+            case "WarAxe":
+                type = weaponType.WarAxe;
                 canBuild = false;
                 //dmg = 0; TODO - Decide on weapons DMG
                 level = 1;

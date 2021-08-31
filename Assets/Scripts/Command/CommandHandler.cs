@@ -54,4 +54,30 @@ public static class RemoveFromQueue
             queue.Enqueue(item);
         }
     }
+    public static void RemoveSpecific(Queue<ICommand> queue, ICommand command)
+    {
+        var cycleAmount = queue.Count;
+
+        for (int i = 0; i < cycleAmount; i++)
+        {
+            ICommand item = queue.Dequeue();
+            if (item == command)
+                continue;
+
+            queue.Enqueue(item);
+        }
+    }    
+    public static void RemoveSpecific(Queue<KeyValuePair<ICommand, GameObject>> queue, ICommand command)
+    {
+        var cycleAmount = queue.Count;
+
+        for (int i = 0; i < cycleAmount; i++)
+        {
+            KeyValuePair<ICommand, GameObject> item = queue.Dequeue();
+            if (item.Key == command)
+                continue;
+
+            queue.Enqueue(item);
+        }
+    }
 }

@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 5188290777810017355}
   - component: {fileID: 6986652808593646055}
   - component: {fileID: -3511457396447129393}
+  - component: {fileID: -8327065827558564468}
   m_Layer: 11
   m_Name: Workshop
   m_TagString: Workshop
@@ -296,6 +297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f9340fb0242c645b971cc9ab64b64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponCreationDelay: 1
+  weaponCreationSteps: 5
+  canBuild: 0
 --- !u!114 &-3511457396447129393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,6 +310,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01533bbb7d1695f4bb2f839b1d941d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8327065827558564468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4377843290953001271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b17042ca0527247a4d3dca7f745abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4711911524827454054

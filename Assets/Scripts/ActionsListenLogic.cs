@@ -9,8 +9,9 @@ public class ActionsListenLogic : MonoBehaviour
     //Singelton 
     public static ActionsListenLogic instance;
 
-    GameObject unitCommands, buildOptions, toolsSelection, campActions;
+    GameObject unitCommands, buildOptions, toolsSelection, campActions, workshopActions;
     [SerializeField] GameObject unitIcon;
+    [SerializeField] GameObject[] toolIcons;
     [SerializeField] BuildingSettings[] buildings; //Array of all building to be built
 
     void Awake()
@@ -20,11 +21,25 @@ public class ActionsListenLogic : MonoBehaviour
         buildOptions = transform.GetChild(1).gameObject;
         toolsSelection = transform.GetChild(3).gameObject;
         campActions = transform.GetChild(4).gameObject;
+        workshopActions = transform.GetChild(2).gameObject;
         SetUnitCommands();
         SetBuildOptions();
         SetCampaActions();
+        SetWorkshopActions();
     }
-
+    private void SetWorkshopActions()
+    {
+        foreach(Transform child in workshopActions.transform)
+        {
+            if (child.GetSiblingIndex() < 7)
+            {
+                GameObject tool = child.GetChild(0).gameObject;
+                tool.GetComponent<Button>().onClick.AddListener(delegate { UIManager.instance.QueueUnit(tool); });
+            }
+            else
+                break;
+        }
+    }
     private void SetCampaActions() // Sets Up The camp buttons(both methods work with the selected building)
     {
         campActions.transform.Find("Content 1/CreateUnit/Button").GetComponent<Button>().onClick.AddListener(delegate { UIManager.instance.QueueUnit(unitIcon); });
@@ -102,6 +117,7 @@ public class ActionsListenLogic : MonoBehaviour
         unitWeapon.SetWeapon(selectedSlot.GetChild(0).name);
        
         Destroy(selectedSlot.GetChild(0).gameObject);
+        workshop.toolsInRack--;
         toolsSelection.transform.GetChild(slot).GetChild(0).gameObject.SetActive(false);
     }
 

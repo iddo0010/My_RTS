@@ -9,6 +9,6 @@ public interface ICreator
     CommandHandler commandHandler { get; } 
     Queue<GameObject> GetIconQueue();
     void AddToQueue(GameObject icon);
-    void Create();
+    void Create(string name);
     void Stop();
 }
