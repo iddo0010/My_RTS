@@ -21,31 +21,31 @@ public class Weapon
             case "HarvestingAxe":
                 type = weaponType.HarvestingAxe;
                 canBuild = false;
-                //dmg = 0; TODO - Decide on weapons DMG
+                dmg = 3f;
                 level = 1;
                 break;
             case "WarAxe":
                 type = weaponType.WarAxe;
                 canBuild = false;
-                //dmg = 0; TODO - Decide on weapons DMG
+                dmg = 10;
                 level = 1;
                 break;
             case "Hammer":
                 type = weaponType.Hammer;
                 canBuild = false;
-                //dmg = 0; TODO - Decide on weapons DMG
+                dmg = 3;
                 level = 1;
                 break;
             case "Club":
                 type = weaponType.Club;
                 canBuild = false;
-                //dmg = 0; TODO - Decide on weapons DMG
+                dmg = 5;
                 level = 1;
                 break;
             case "MiningHoe":
                 type = weaponType.MiningHoe;
                 canBuild = false;
-                //dmg = 0; TODO - Decide on weapons DMG
+                dmg = 3;
                 level = 1;
                 break;
             case "Shield":
@@ -57,7 +57,7 @@ public class Weapon
             case "Spear":
                 type = weaponType.Spear;
                 canBuild = false;
-                //dmg = 0; TODO - Decide on weapons DMG
+                dmg = 10;
                 level = 1;
                 break;
         }

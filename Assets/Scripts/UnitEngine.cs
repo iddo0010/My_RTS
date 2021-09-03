@@ -137,6 +137,9 @@ public class UnitEngine : MonoBehaviour
                 case 11://Building Layer                 
                     GoToTarget(hit.transform.gameObject);
                     break;
+                case 13://Enemy Layer                 
+                    GoToTarget(hit.transform.gameObject);
+                    break;
             }
 
         }
@@ -247,7 +250,7 @@ public class UnitEngine : MonoBehaviour
     /// Creates a Overlap Sphere with searchRadius, if the target is withing the sphere - executes methods according to targets layer
     /// </summary>
     /// <param name="target">Target to find</param>
-    private void FindTarget(GameObject target)
+    virtual protected void FindTarget(GameObject target)
     {
         Collider[] collidersInRange = Physics.OverlapSphere(transform.position, searchRadius);
         foreach (Collider c in collidersInRange)
@@ -292,11 +295,36 @@ public class UnitEngine : MonoBehaviour
                                 break;
                         }
                         break;
+                    case 13:
+                        Enemy attackedEnemy = target.GetComponent<Enemy>();
+                        unit.isAttacking = true;
+                        attackedEnemy.transform.LookAt(transform); //Keep on looking at the unit the one that you attacked
+                        transform.LookAt(attackedEnemy.transform);
+                        SetAnimation("isAttacking", true);
+                        StartCoroutine(Attack(attackedEnemy));
+                        break;
                 }
                 break;
 
             }
         }
+    }
+
+    private IEnumerator Attack(Enemy enemy)
+    {
+        while(unit.isAttacking)
+        {            
+            print(enemy.RecieveDmg(mainWeapon.dmg + offWeapon.dmg));
+            yield return new WaitForSeconds(1f);
+            if (enemy.unit.hp<= 0)
+                StopAttacking();
+        }
+    }
+
+    private void StopAttacking()
+    {
+        unit.isAttacking = false;
+        SetAnimation("isAttacking", false);
     }
 
     /// <summary>
@@ -325,9 +353,10 @@ public class UnitEngine : MonoBehaviour
             if (unit.isHarvesting)
                 resourceBeingGathered.GetComponent<Resource>().StopGathering(this); //stops coroutine only on this unit
             unit.isGatheringRoutine = false;
+            unit.isAttacking = false;
             resourceBeingGathered = null;
         }
-        if(unit.isBuilding)
+        else if(unit.isBuilding)
         {
             Collider[] collidersInRange = Physics.OverlapSphere(transform.position, searchRadius);
             foreach (Collider c in collidersInRange)
@@ -343,12 +372,15 @@ public class UnitEngine : MonoBehaviour
 
             }
         }
-        if(unit.isInWorkshop)
+        else if(unit.isInWorkshop)
         {
             unit.isInWorkshop = false;
             UIManager.instance.UpdateSelectedUnit(gameObject);
         }
-        
+        else if(unit.isAttacking)
+        {
+            StopAttacking();
+        }
     }
 
     private void OnDrawGizmos()

@@ -11,6 +11,7 @@ public class Unit
     public bool isGatheringRoutine;
     public bool isHarvesting;
     public bool isBuilding;
+    public bool isAttacking;
     public int bagSize;
     public Dictionary<ResourceType, int> resourceCarry;
     public float hp;

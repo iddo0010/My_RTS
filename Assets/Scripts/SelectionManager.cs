@@ -117,7 +117,6 @@ public class SelectionManager : MonoBehaviour
                         if (hit.collider.TryGetComponent<BuildingEngine>(out currentBuilding))
                             currentBuilding.SelectBuilding();
                         break;
-
                 }
             }
         }
